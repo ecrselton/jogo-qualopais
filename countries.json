@@ -1,0 +1,1458 @@
+{
+  "AD": [
+    "Andorra",
+    "Principality of Andorra",
+    "Andorre"
+  ],
+  "AE": [
+    "Emirados Árabes Unidos",
+    "Emirados Arabes Unidos",
+    "United Arab Emirates",
+    "Emiratos Árabes Unidos",
+    "Émirats arabes unis"
+  ],
+  "AF": [
+    "Afghanistan",
+    "Islamic Republic of Afghanistan",
+    "Afeganistão",
+    "Afganistán"
+  ],
+  "AG": [
+    "Antigua and Barbuda",
+    "Antígua e Barbuda",
+    "Antigua y Barbuda",
+    "Antigua-et-Barbuda"
+  ],
+  "AI": [
+    "Anguilla"
+  ],
+  "AL": [
+    "Albania",
+    "Republic of Albania",
+    "Albânia",
+    "Albanie"
+  ],
+  "AM": [
+    "Armenia",
+    "Republic of Armenia",
+    "Arménia",
+    "Arménie"
+  ],
+  "AO": [
+    "Angola",
+    "Republic of Angola"
+  ],
+  "AQ": [
+    "Antarctica",
+    "Antártida",
+    "Antarctique"
+  ],
+  "AR": [
+    "Argentina",
+    "Argentine Republic",
+    "Argentine"
+  ],
+  "AS": [
+    "American Samoa",
+    "Samoa Americana",
+    "Samoa américaines"
+  ],
+  "AT": [
+    "Austria",
+    "Republic of Austria",
+    "Áustria",
+    "Autriche"
+  ],
+  "AU": [
+    "Austrália",
+    "Australia",
+    "Commonwealth of Australia",
+    "Australie"
+  ],
+  "AW": [
+    "Aruba"
+  ],
+  "AX": [
+    "Åland Islands",
+    "Alândia",
+    "Alandia",
+    "Ahvenanmaa"
+  ],
+  "AZ": [
+    "Azerbaijan",
+    "Republic of Azerbaijan",
+    "Azerbeijão",
+    "Azerbaiyán",
+    "Azerbaïdjan"
+  ],
+  "BA": [
+    "Bosnia and Herzegovina",
+    "Bósnia e Herzegovina",
+    "Bosnia y Herzegovina",
+    "Bosnie-Herzégovine"
+  ],
+  "BB": [
+    "Barbados",
+    "Barbade"
+  ],
+  "BD": [
+    "Bangladesh",
+    "People's Republic of Bangladesh"
+  ],
+  "BE": [
+    "Bélgica",
+    "Belgica",
+    "Belgium",
+    "Kingdom of Belgium",
+    "Belgique"
+  ],
+  "BF": [
+    "Burkina Faso"
+  ],
+  "BG": [
+    "Bulgaria",
+    "Republic of Bulgaria",
+    "Bulgária",
+    "Bulgarie"
+  ],
+  "BH": [
+    "Bahrain",
+    "Kingdom of Bahrain",
+    "Bahrein",
+    "Bahreïn"
+  ],
+  "BI": [
+    "Burundi",
+    "Republic of Burundi"
+  ],
+  "BJ": [
+    "Benin",
+    "Republic of Benin",
+    "Benín",
+    "Bénin"
+  ],
+  "BL": [
+    "Saint Barthélemy",
+    "Collectivity of Saint Barthélemy",
+    "São Bartolomeu",
+    "San Bartolomé",
+    "Saint-Barthélemy"
+  ],
+  "BM": [
+    "Bermuda",
+    "Bermudas",
+    "Bermudes"
+  ],
+  "BN": [
+    "Brunei",
+    "Nation of Brunei, Abode of Peace"
+  ],
+  "BO": [
+    "Bolívia",
+    "Bolivia",
+    "Plurinational State of Bolivia",
+    "Bolivie"
+  ],
+  "BQ": [
+    "Caribbean Netherlands",
+    "Bonaire, Sint Eustatius and Saba",
+    "Países Baixos Caribenhos",
+    "Caribe Neerlandés",
+    "Pays-Bas caribéens"
+  ],
+  "BR": [
+    "República Federativa do Brasil",
+    "Brasil",
+    "Brazil",
+    "Federative Republic of Brazil",
+    "Brésil"
+  ],
+  "BS": [
+    "Bahamas",
+    "Commonwealth of the Bahamas"
+  ],
+  "BT": [
+    "Bhutan",
+    "Kingdom of Bhutan",
+    "Butão",
+    "Bután",
+    "Bhoutan"
+  ],
+  "BV": [
+    "Bouvet Island",
+    "Ilha Bouvet",
+    "Isla Bouvet",
+    "Île Bouvet"
+  ],
+  "BW": [
+    "Botswana",
+    "Republic of Botswana"
+  ],
+  "BY": [
+    "Belarus",
+    "Republic of Belarus",
+    "Bielorússia",
+    "Bielorrusia",
+    "Biélorussie"
+  ],
+  "BZ": [
+    "Belize",
+    "Belice"
+  ],
+  "CA": [
+    "Canadá",
+    "Canada"
+  ],
+  "CC": [
+    "Ilhas Cocos (Keeling)",
+    "Cocos (Keeling) Islands",
+    "Territory of the Cocos (Keeling) Islands",
+    "Islas Cocos o Islas Keeling",
+    "Îles Cocos"
+  ],
+  "CD": [
+    "República Democrática do Congo",
+    "DR Congo",
+    "Democratic Republic of the Congo",
+    "Congo (Rep. Dem.)",
+    "Congo (Rép. dém.)"
+  ],
+  "CF": [
+    "Central African Republic",
+    "República Centro-Africana",
+    "República Centroafricana",
+    "République centrafricaine"
+  ],
+  "CG": [
+    "Republic of the Congo",
+    "Congo"
+  ],
+  "CH": [
+    "Suíça",
+    "Suica",
+    "Switzerland",
+    "Swiss Confederation",
+    "Suiza",
+    "Suisse"
+  ],
+  "CI": [
+    "Costa do Marfim",
+    "Ivory Coast",
+    "Republic of Côte d'Ivoire",
+    "Costa de Marfil",
+    "Côte d'Ivoire"
+  ],
+  "CK": [
+    "Ilhas Cook",
+    "Cook Islands",
+    "Islas Cook",
+    "Îles Cook"
+  ],
+  "CL": [
+    "Chile",
+    "Republic of Chile",
+    "Chili"
+  ],
+  "CM": [
+    "Cameroon",
+    "Republic of Cameroon",
+    "Camarões",
+    "Camerún",
+    "Cameroun"
+  ],
+  "CN": [
+    "República Popular da China",
+    "China",
+    "Republica Popular da China",
+    "People's Republic of China",
+    "Chine"
+  ],
+  "CO": [
+    "Colômbia",
+    "Colombia",
+    "Republic of Colombia",
+    "Colombie"
+  ],
+  "CR": [
+    "Costa Rica",
+    "Republic of Costa Rica"
+  ],
+  "CU": [
+    "Cuba",
+    "Republic of Cuba"
+  ],
+  "CV": [
+    "Cape Verde",
+    "Republic of Cabo Verde",
+    "Cabo Verde",
+    "Îles du Cap-Vert"
+  ],
+  "CW": [
+    "ilha da Curação",
+    "Curaçao",
+    "Country of Curaçao",
+    "Curazao"
+  ],
+  "CX": [
+    "Ilha do Natal",
+    "Christmas Island",
+    "Territory of Christmas Island",
+    "Isla de Navidad",
+    "Île Christmas"
+  ],
+  "CY": [
+    "Cyprus",
+    "Republic of Cyprus",
+    "Chipre",
+    "Chypre"
+  ],
+  "CZ": [
+    "Czechia",
+    "Czech Republic",
+    "Chéquia",
+    "Chequia",
+    "Tchéquie"
+  ],
+  "DE": [
+    "Alemanha",
+    "Germany",
+    "Federal Republic of Germany",
+    "Alemania",
+    "Allemagne"
+  ],
+  "DJ": [
+    "Djibouti",
+    "Republic of Djibouti"
+  ],
+  "DK": [
+    "Denmark",
+    "Kingdom of Denmark",
+    "Dinamarca",
+    "Danemark"
+  ],
+  "DM": [
+    "Dominica",
+    "Commonwealth of Dominica",
+    "Dominique"
+  ],
+  "DO": [
+    "Dominican Republic",
+    "República Dominicana",
+    "République dominicaine"
+  ],
+  "DZ": [
+    "Algeria",
+    "People's Democratic Republic of Algeria",
+    "Argélia",
+    "Argelia",
+    "Algérie"
+  ],
+  "EC": [
+    "Ecuador",
+    "Republic of Ecuador",
+    "Equador",
+    "Équateur"
+  ],
+  "EE": [
+    "Estonia",
+    "Republic of Estonia",
+    "Estónia",
+    "Estonie"
+  ],
+  "EG": [
+    "Egypt",
+    "Arab Republic of Egypt",
+    "Egito",
+    "Egipto",
+    "Égypte"
+  ],
+  "EH": [
+    "Western Sahara",
+    "Sahrawi Arab Democratic Republic",
+    "Saara Ocidental",
+    "Sahara Occidental"
+  ],
+  "ER": [
+    "Eritrea",
+    "State of Eritrea",
+    "Eritreia",
+    "Érythrée"
+  ],
+  "ES": [
+    "Espanha",
+    "Spain",
+    "Kingdom of Spain",
+    "España",
+    "Espagne"
+  ],
+  "ET": [
+    "Ethiopia",
+    "Federal Democratic Republic of Ethiopia",
+    "Etiópia",
+    "Etiopía",
+    "Éthiopie"
+  ],
+  "FI": [
+    "Finlândia",
+    "Finlandia",
+    "Finland",
+    "Republic of Finland",
+    "Finlande"
+  ],
+  "FJ": [
+    "Fiji",
+    "Republic of Fiji",
+    "Fiyi",
+    "Fidji"
+  ],
+  "FK": [
+    "Ilhas Malvinas",
+    "Falkland Islands",
+    "Islas Malvinas",
+    "Îles Malouines"
+  ],
+  "FM": [
+    "Micronesia",
+    "Federated States of Micronesia",
+    "Micronésia",
+    "Micronésie"
+  ],
+  "FO": [
+    "Ilhas Faroé",
+    "Faroe Islands",
+    "Islas Faroe",
+    "Îles Féroé"
+  ],
+  "FR": [
+    "França",
+    "Franca",
+    "France",
+    "French Republic",
+    "Francia"
+  ],
+  "GA": [
+    "Gabon",
+    "Gabonese Republic",
+    "Gabão",
+    "Gabón"
+  ],
+  "GB": [
+    "Reino Unido",
+    "Grã-Bretanha",
+    "United Kingdom",
+    "UK",
+    "Great Britain",
+    "United Kingdom of Great Britain and Northern Ireland",
+    "Royaume-Uni"
+  ],
+  "GB-ENG": [
+    "Inglaterra",
+    "England"
+  ],
+  "GB-NIR": [
+    "Irlanda do Norte",
+    "Northern Ireland"
+  ],
+  "GB-SCT": [
+    "Escócia",
+    "Scotland"
+  ],
+  "GB-WLS": [
+    "País de Gales",
+    "Pais de Gales",
+    "Wales"
+  ],
+  "GD": [
+    "Grenada",
+    "Granada",
+    "Grenade"
+  ],
+  "GE": [
+    "Georgia",
+    "Geórgia",
+    "Géorgie"
+  ],
+  "GF": [
+    "French Guiana",
+    "Guiana",
+    "Guiana Francesa",
+    "Guayana Francesa",
+    "Guyane"
+  ],
+  "GG": [
+    "Guernsey",
+    "Bailiwick of Guernsey",
+    "Guernesey"
+  ],
+  "GH": [
+    "Ghana",
+    "Republic of Ghana",
+    "Gana"
+  ],
+  "GI": [
+    "Gibraltar"
+  ],
+  "GL": [
+    "Greenland",
+    "Gronelândia",
+    "Groenlandia",
+    "Groenland"
+  ],
+  "GM": [
+    "Gambia",
+    "Republic of the Gambia",
+    "Gâmbia",
+    "Gambie"
+  ],
+  "GN": [
+    "Guinea",
+    "Republic of Guinea",
+    "Guiné",
+    "Guinée"
+  ],
+  "GP": [
+    "Guadeloupe",
+    "Guadalupe"
+  ],
+  "GQ": [
+    "Equatorial Guinea",
+    "Republic of Equatorial Guinea",
+    "Guiné Equatorial",
+    "Guinea Ecuatorial",
+    "Guinée équatoriale"
+  ],
+  "GR": [
+    "Greece",
+    "Hellenic Republic",
+    "Grécia",
+    "Grecia",
+    "Grèce"
+  ],
+  "GS": [
+    "Ilhas Geórgia do Sul e Sandwich do Sul",
+    "South Georgia",
+    "South Georgia and the South Sandwich Islands",
+    "Islas Georgias del Sur y Sandwich del Sur",
+    "Géorgie du Sud-et-les Îles Sandwich du Sud"
+  ],
+  "GT": [
+    "Guatemala",
+    "Republic of Guatemala"
+  ],
+  "GU": [
+    "Guam"
+  ],
+  "GW": [
+    "Guinea-Bissau",
+    "Republic of Guinea-Bissau",
+    "Guiné-Bissau",
+    "Guinea-Bisáu",
+    "Guinée-Bissau"
+  ],
+  "GY": [
+    "Guyana",
+    "Co-operative Republic of Guyana",
+    "Guiana"
+  ],
+  "HK": [
+    "Hong Kong",
+    "Hong Kong Special Administrative Region of the People's Republic of China"
+  ],
+  "HM": [
+    "Ilha Heard e Ilhas McDonald",
+    "Heard Island and McDonald Islands",
+    "Islas Heard y McDonald",
+    "Îles Heard-et-MacDonald"
+  ],
+  "HN": [
+    "Honduras",
+    "Republic of Honduras"
+  ],
+  "HR": [
+    "Croatia",
+    "Republic of Croatia",
+    "Croácia",
+    "Croacia",
+    "Croatie"
+  ],
+  "HT": [
+    "Haiti",
+    "Republic of Haiti",
+    "Haití",
+    "Haïti"
+  ],
+  "HU": [
+    "Hungary",
+    "Hungria",
+    "Hungría",
+    "Hongrie"
+  ],
+  "ID": [
+    "Indonesia",
+    "Republic of Indonesia",
+    "Indonésia",
+    "Indonésie"
+  ],
+  "IE": [
+    "Ireland",
+    "Republic of Ireland",
+    "Irlanda",
+    "Irlande"
+  ],
+  "IL": [
+    "Israel",
+    "State of Israel",
+    "Israël"
+  ],
+  "IM": [
+    "Ilha de Man",
+    "Isle of Man",
+    "Isla de Man",
+    "Île de Man"
+  ],
+  "IN": [
+    "Índia",
+    "India",
+    "Republic of India",
+    "Inde"
+  ],
+  "IO": [
+    "Território Britânico do Oceano Índico",
+    "British Indian Ocean Territory",
+    "Territorio Británico del Océano Índico",
+    "Territoire britannique de l'océan Indien"
+  ],
+  "IQ": [
+    "Iraq",
+    "Republic of Iraq",
+    "Iraque",
+    "Irak"
+  ],
+  "IR": [
+    "Iran",
+    "Islamic Republic of Iran",
+    "Irão"
+  ],
+  "IS": [
+    "Iceland",
+    "Islândia",
+    "Islandia",
+    "Islande"
+  ],
+  "IT": [
+    "Itália",
+    "Italia",
+    "Italy",
+    "Italian Republic",
+    "Italie"
+  ],
+  "JE": [
+    "Jersey",
+    "Bailiwick of Jersey"
+  ],
+  "JM": [
+    "Jamaica",
+    "Jamaïque"
+  ],
+  "JO": [
+    "Jordan",
+    "Hashemite Kingdom of Jordan",
+    "Jordânia",
+    "Jordania",
+    "Jordanie"
+  ],
+  "JP": [
+    "Japão",
+    "Japao",
+    "Japan",
+    "Japón",
+    "Japon"
+  ],
+  "KE": [
+    "Kenya",
+    "Republic of Kenya",
+    "Quénia",
+    "Kenia"
+  ],
+  "KG": [
+    "Kyrgyzstan",
+    "Kyrgyz Republic",
+    "Quirguistão",
+    "Kirguizistán",
+    "Kirghizistan"
+  ],
+  "KH": [
+    "Cambodia",
+    "Kingdom of Cambodia",
+    "Camboja",
+    "Camboya",
+    "Cambodge"
+  ],
+  "KI": [
+    "Kiribati",
+    "Independent and Sovereign Republic of Kiribati"
+  ],
+  "KM": [
+    "Comoros",
+    "Union of the Comoros",
+    "Comores",
+    "Comoras"
+  ],
+  "KN": [
+    "Saint Kitts and Nevis",
+    "Federation of Saint Christopher and Nevis",
+    "São Cristóvão e Nevis",
+    "San Cristóbal y Nieves",
+    "Saint-Christophe-et-Niévès"
+  ],
+  "KP": [
+    "Coreia do Norte",
+    "North Korea",
+    "Democratic People's Republic of Korea",
+    "Corea del Norte",
+    "Corée du Nord"
+  ],
+  "KR": [
+    "Coreia do Sul",
+    "South Korea",
+    "Republic of Korea",
+    "Corea del Sur",
+    "Corée du Sud"
+  ],
+  "KW": [
+    "Kuwait",
+    "State of Kuwait",
+    "Koweït"
+  ],
+  "KY": [
+    "Ilhas Caimão",
+    "Cayman Islands",
+    "Islas Caimán",
+    "Îles Caïmans"
+  ],
+  "KZ": [
+    "Kazakhstan",
+    "Republic of Kazakhstan",
+    "Cazaquistão",
+    "Kazajistán"
+  ],
+  "LA": [
+    "Laos",
+    "Lao People's Democratic Republic"
+  ],
+  "LB": [
+    "Lebanon",
+    "Lebanese Republic",
+    "Líbano",
+    "Liban"
+  ],
+  "LC": [
+    "Saint Lucia",
+    "Santa Lúcia",
+    "Santa Lucía",
+    "Sainte-Lucie"
+  ],
+  "LI": [
+    "Liechtenstein",
+    "Principality of Liechtenstein"
+  ],
+  "LK": [
+    "Sri Lanka",
+    "Democratic Socialist Republic of Sri Lanka"
+  ],
+  "LR": [
+    "Liberia",
+    "Republic of Liberia",
+    "Libéria"
+  ],
+  "LS": [
+    "Lesotho",
+    "Kingdom of Lesotho",
+    "Lesoto"
+  ],
+  "LT": [
+    "Lithuania",
+    "Republic of Lithuania",
+    "Lituânia",
+    "Lituania",
+    "Lituanie"
+  ],
+  "LU": [
+    "Luxembourg",
+    "Grand Duchy of Luxembourg",
+    "Luxemburgo"
+  ],
+  "LV": [
+    "Latvia",
+    "Republic of Latvia",
+    "Letónia",
+    "Letonia",
+    "Lettonie"
+  ],
+  "LY": [
+    "Libya",
+    "State of Libya",
+    "Líbia",
+    "Libia",
+    "Libye"
+  ],
+  "MA": [
+    "Morocco",
+    "Kingdom of Morocco",
+    "Marrocos",
+    "Marruecos",
+    "Maroc"
+  ],
+  "MC": [
+    "Monaco",
+    "Principality of Monaco",
+    "Mónaco"
+  ],
+  "MD": [
+    "Moldova",
+    "Republic of Moldova",
+    "Moldávia",
+    "Moldavia",
+    "Moldavie"
+  ],
+  "ME": [
+    "Montenegro",
+    "Monténégro"
+  ],
+  "MF": [
+    "Saint Martin",
+    "São Martinho",
+    "Saint-Martin"
+  ],
+  "MG": [
+    "Madagascar",
+    "Republic of Madagascar",
+    "Madagáscar"
+  ],
+  "MH": [
+    "Ilhas Marshall",
+    "Marshall Islands",
+    "Republic of the Marshall Islands",
+    "Islas Marshall",
+    "Îles Marshall"
+  ],
+  "MK": [
+    "Macedónia do Norte",
+    "North Macedonia",
+    "Republic of North Macedonia",
+    "Macedonia del Norte",
+    "Macédoine du Nord"
+  ],
+  "ML": [
+    "Mali",
+    "Republic of Mali"
+  ],
+  "MM": [
+    "Myanmar",
+    "Republic of the Union of Myanmar",
+    "Birmanie"
+  ],
+  "MN": [
+    "Mongolia",
+    "Mongólia",
+    "Mongolie"
+  ],
+  "MO": [
+    "Macau",
+    "Macao Special Administrative Region of the People's Republic of China",
+    "Macao"
+  ],
+  "MP": [
+    "Northern Mariana Islands",
+    "Commonwealth of the Northern Mariana Islands",
+    "Marianas Setentrionais",
+    "Islas Marianas del Norte",
+    "Îles Mariannes du Nord"
+  ],
+  "MQ": [
+    "Martinique",
+    "Martinica"
+  ],
+  "MR": [
+    "Mauritania",
+    "Islamic Republic of Mauritania",
+    "Mauritânia",
+    "Mauritanie"
+  ],
+  "MS": [
+    "Montserrat"
+  ],
+  "MT": [
+    "Malta",
+    "Republic of Malta",
+    "Malte"
+  ],
+  "MU": [
+    "Mauritius",
+    "Republic of Mauritius",
+    "Maurício",
+    "Mauricio",
+    "Île Maurice"
+  ],
+  "MV": [
+    "Maldives",
+    "Republic of the Maldives",
+    "Maldivas"
+  ],
+  "MW": [
+    "Malawi",
+    "Republic of Malawi"
+  ],
+  "MX": [
+    "México",
+    "Mexico",
+    "United Mexican States",
+    "Mexique"
+  ],
+  "MY": [
+    "Malaysia",
+    "Malásia",
+    "Malasia",
+    "Malaisie"
+  ],
+  "MZ": [
+    "Mozambique",
+    "Republic of Mozambique",
+    "Moçambique"
+  ],
+  "NA": [
+    "Namibia",
+    "Republic of Namibia",
+    "Namíbia",
+    "Namibie"
+  ],
+  "NC": [
+    "Nova Caledónia",
+    "New Caledonia",
+    "Nueva Caledonia",
+    "Nouvelle-Calédonie"
+  ],
+  "NE": [
+    "Niger",
+    "Republic of Niger",
+    "Níger"
+  ],
+  "NF": [
+    "Isla de Norfolk",
+    "Norfolk Island",
+    "Territory of Norfolk Island",
+    "Ilha Norfolk",
+    "Île Norfolk"
+  ],
+  "NG": [
+    "Nigéria",
+    "Nigeria",
+    "Federal Republic of Nigeria"
+  ],
+  "NI": [
+    "Nicaragua",
+    "Republic of Nicaragua",
+    "Nicarágua"
+  ],
+  "NL": [
+    "Países Baixos",
+    "Paises Baixos",
+    "Holanda",
+    "Netherlands",
+    "Kingdom of the Netherlands",
+    "Países Bajos",
+    "Pays-Bas"
+  ],
+  "NO": [
+    "Norway",
+    "Kingdom of Norway",
+    "Noruega",
+    "Norvège"
+  ],
+  "NP": [
+    "Nepal",
+    "Federal Democratic Republic of Nepal",
+    "Népal"
+  ],
+  "NR": [
+    "Nauru",
+    "Republic of Nauru"
+  ],
+  "NU": [
+    "Niue"
+  ],
+  "NZ": [
+    "Nova Zelândia",
+    "Nova Zelandia",
+    "New Zealand",
+    "Nueva Zelanda",
+    "Nouvelle-Zélande"
+  ],
+  "OM": [
+    "Oman",
+    "Sultanate of Oman",
+    "Omã",
+    "Omán"
+  ],
+  "PA": [
+    "Panama",
+    "Republic of Panama",
+    "Panamá"
+  ],
+  "PE": [
+    "Peru",
+    "Republic of Peru",
+    "Perú",
+    "Pérou"
+  ],
+  "PF": [
+    "French Polynesia",
+    "Polinésia Francesa",
+    "Polinesia Francesa",
+    "Polynésie française"
+  ],
+  "PG": [
+    "Papua Nova Guiné",
+    "Papua New Guinea",
+    "Independent State of Papua New Guinea",
+    "Papúa Nueva Guinea",
+    "Papouasie-Nouvelle-Guinée"
+  ],
+  "PH": [
+    "Philippines",
+    "Republic of the Philippines",
+    "Filipinas"
+  ],
+  "PK": [
+    "Pakistan",
+    "Islamic Republic of Pakistan",
+    "Paquistão",
+    "Pakistán"
+  ],
+  "PL": [
+    "Polônia",
+    "Polonia",
+    "Poland",
+    "Republic of Poland",
+    "Polónia",
+    "Pologne"
+  ],
+  "PM": [
+    "Saint Pierre and Miquelon",
+    "Saint-Pierre e Miquelon",
+    "San Pedro y Miquelón",
+    "Saint-Pierre-et-Miquelon"
+  ],
+  "PN": [
+    "Ilhas Pitcairn",
+    "Pitcairn Islands",
+    "Pitcairn Group of Islands",
+    "Islas Pitcairn",
+    "Îles Pitcairn"
+  ],
+  "PR": [
+    "Puerto Rico",
+    "Commonwealth of Puerto Rico",
+    "Porto Rico"
+  ],
+  "PS": [
+    "Palestine",
+    "State of Palestine",
+    "Palestina"
+  ],
+  "PT": [
+    "Portugal",
+    "Portuguese Republic"
+  ],
+  "PW": [
+    "Palau",
+    "Republic of Palau",
+    "Palaos (Palau)"
+  ],
+  "PY": [
+    "Paraguai",
+    "Paraguay",
+    "Republic of Paraguay"
+  ],
+  "QA": [
+    "Qatar",
+    "State of Qatar",
+    "Catar"
+  ],
+  "RE": [
+    "Réunion",
+    "Réunion Island",
+    "Reunião",
+    "Reunión"
+  ],
+  "RO": [
+    "Romania",
+    "Roménia",
+    "Rumania",
+    "Roumanie"
+  ],
+  "RS": [
+    "Serbia",
+    "Republic of Serbia",
+    "Sérvia",
+    "Serbie"
+  ],
+  "RU": [
+    "Rússia",
+    "Russia",
+    "Russian Federation",
+    "Rusia",
+    "Russie"
+  ],
+  "RW": [
+    "Rwanda",
+    "Republic of Rwanda",
+    "Ruanda"
+  ],
+  "SA": [
+    "Arábia Saudita",
+    "Arabia Saudita",
+    "Saudi Arabia",
+    "Kingdom of Saudi Arabia",
+    "Arabia Saudí",
+    "Arabie Saoudite"
+  ],
+  "SB": [
+    "Ilhas Salomão",
+    "Solomon Islands",
+    "Islas Salomón",
+    "Îles Salomon"
+  ],
+  "SC": [
+    "Seychelles",
+    "Republic of Seychelles",
+    "Seicheles"
+  ],
+  "SD": [
+    "Sudan",
+    "Republic of the Sudan",
+    "Sudão",
+    "Sudán",
+    "Soudan"
+  ],
+  "SE": [
+    "Suécia",
+    "Suecia",
+    "Sweden",
+    "Kingdom of Sweden",
+    "Suède"
+  ],
+  "SG": [
+    "Singapore",
+    "Republic of Singapore",
+    "Singapura",
+    "Singapur",
+    "Singapour"
+  ],
+  "SH": [
+    "Saint Helena, Ascension and Tristan da Cunha",
+    "Santa Helena, Ascensão e Tristão da Cunha",
+    "Santa Elena, Ascensión y Tristán de Acuña",
+    "Sainte-Hélène, Ascension et Tristan da Cunha"
+  ],
+  "SI": [
+    "Slovenia",
+    "Republic of Slovenia",
+    "Eslovénia",
+    "Eslovenia",
+    "Slovénie"
+  ],
+  "SJ": [
+    "Ilhas Svalbard e Jan Mayen",
+    "Svalbard and Jan Mayen",
+    "Svalbard og Jan Mayen",
+    "Islas Svalbard y Jan Mayen",
+    "Svalbard et Jan Mayen"
+  ],
+  "SK": [
+    "Slovakia",
+    "Slovak Republic",
+    "Eslováquia",
+    "República Eslovaca",
+    "Slovaquie"
+  ],
+  "SL": [
+    "Sierra Leone",
+    "Republic of Sierra Leone",
+    "Serra Leoa"
+  ],
+  "SM": [
+    "San Marino",
+    "Republic of San Marino",
+    "Saint-Marin"
+  ],
+  "SN": [
+    "Senegal",
+    "Republic of Senegal",
+    "Sénégal"
+  ],
+  "SO": [
+    "Somalia",
+    "Federal Republic of Somalia",
+    "Somália",
+    "Somalie"
+  ],
+  "SR": [
+    "Suriname",
+    "Republic of Suriname",
+    "Surinam"
+  ],
+  "SS": [
+    "Sudão do Sul",
+    "South Sudan",
+    "Republic of South Sudan",
+    "Sudán del Sur",
+    "Soudan du Sud"
+  ],
+  "ST": [
+    "São Tomé and Príncipe",
+    "Democratic Republic of São Tomé and Príncipe",
+    "São Tomé e Príncipe",
+    "Santo Tomé y Príncipe",
+    "São Tomé et Príncipe"
+  ],
+  "SV": [
+    "El Salvador",
+    "Republic of El Salvador",
+    "Salvador"
+  ],
+  "SX": [
+    "Sint Maarten",
+    "São Martinho",
+    "Saint-Martin"
+  ],
+  "SY": [
+    "Syria",
+    "Syrian Arab Republic",
+    "Síria",
+    "Siria",
+    "Syrie"
+  ],
+  "SZ": [
+    "Eswatini",
+    "Kingdom of Eswatini",
+    "Suazilândia",
+    "Suazilandia",
+    "Swaziland"
+  ],
+  "TC": [
+    "Ilhas Turks e Caicos",
+    "Turks and Caicos Islands",
+    "Islas Turks y Caicos",
+    "Îles Turques-et-Caïques"
+  ],
+  "TD": [
+    "Chad",
+    "Republic of Chad",
+    "Chade",
+    "Tchad"
+  ],
+  "TF": [
+    "French Southern and Antarctic Lands",
+    "Territory of the French Southern and Antarctic Lands",
+    "Terras Austrais e Antárticas Francesas",
+    "Tierras Australes y Antárticas Francesas",
+    "Terres australes et antarctiques françaises"
+  ],
+  "TG": [
+    "Togo",
+    "Togolese Republic"
+  ],
+  "TH": [
+    "Thailand",
+    "Kingdom of Thailand",
+    "Tailândia",
+    "Tailandia",
+    "Thaïlande"
+  ],
+  "TJ": [
+    "Tajikistan",
+    "Republic of Tajikistan",
+    "Tajiquistão",
+    "Tayikistán",
+    "Tadjikistan"
+  ],
+  "TK": [
+    "Tokelau",
+    "Islas Tokelau"
+  ],
+  "TL": [
+    "Timor-Leste",
+    "Democratic Republic of Timor-Leste",
+    "Timor Oriental",
+    "Timor oriental"
+  ],
+  "TM": [
+    "Turkmenistan",
+    "Turquemenistão",
+    "Turkmenistán",
+    "Turkménistan"
+  ],
+  "TN": [
+    "Tunisia",
+    "Tunisian Republic",
+    "Tunísia",
+    "Túnez",
+    "Tunisie"
+  ],
+  "TO": [
+    "Tonga",
+    "Kingdom of Tonga"
+  ],
+  "TR": [
+    "Turkey",
+    "Republic of Turkey",
+    "Turquia",
+    "Turquía",
+    "Turquie"
+  ],
+  "TT": [
+    "Trinidad and Tobago",
+    "Republic of Trinidad and Tobago",
+    "Trinidade e Tobago",
+    "Trinidad y Tobago",
+    "Trinité-et-Tobago"
+  ],
+  "TV": [
+    "Tuvalu"
+  ],
+  "TW": [
+    "Taiwan",
+    "Republic of China (Taiwan)",
+    "Ilha Formosa",
+    "Taiwán",
+    "Taïwan"
+  ],
+  "TZ": [
+    "Tanzania",
+    "United Republic of Tanzania",
+    "Tanzânia",
+    "Tanzanie"
+  ],
+  "UA": [
+    "Ukraine",
+    "Ucrânia",
+    "Ucrania"
+  ],
+  "UG": [
+    "Uganda",
+    "Republic of Uganda",
+    "Ouganda"
+  ],
+  "UM": [
+    "Ilhas Menores Distantes dos Estados Unidos",
+    "United States Minor Outlying Islands",
+    "Islas Ultramarinas Menores de Estados Unidos",
+    "Îles mineures éloignées des États-Unis"
+  ],
+  "US": [
+    "Estados Unidos",
+    "Estados Unidos da América",
+    "United States",
+    "USA",
+    "United States of America",
+    "États-Unis"
+  ],
+  "UY": [
+    "Uruguai",
+    "Uruguay",
+    "Oriental Republic of Uruguay"
+  ],
+  "UZ": [
+    "Uzbekistan",
+    "Republic of Uzbekistan",
+    "Uzbequistão",
+    "Uzbekistán",
+    "Ouzbékistan"
+  ],
+  "VA": [
+    "Cidade do Vaticano",
+    "Vatican City",
+    "Vatican City State",
+    "Ciudad del Vaticano",
+    "Cité du Vatican"
+  ],
+  "VC": [
+    "Saint Vincent and the Grenadines",
+    "São Vincente e Granadinas",
+    "San Vicente y Granadinas",
+    "Saint-Vincent-et-les-Grenadines"
+  ],
+  "VE": [
+    "Venezuela",
+    "Bolivarian Republic of Venezuela"
+  ],
+  "VG": [
+    "Ilhas Virgens",
+    "British Virgin Islands",
+    "Virgin Islands",
+    "Islas Vírgenes del Reino Unido",
+    "Îles Vierges britanniques"
+  ],
+  "VI": [
+    "Ilhas Virgens dos Estados Unidos",
+    "United States Virgin Islands",
+    "Virgin Islands of the United States",
+    "Islas Vírgenes de los Estados Unidos",
+    "Îles Vierges des États-Unis"
+  ],
+  "VN": [
+    "Vietnam",
+    "Socialist Republic of Vietnam",
+    "Vietname",
+    "Viêt Nam"
+  ],
+  "VU": [
+    "Vanuatu",
+    "Republic of Vanuatu"
+  ],
+  "WF": [
+    "Wallis and Futuna",
+    "Territory of the Wallis and Futuna Islands",
+    "Wallis e Futuna",
+    "Wallis y Futuna",
+    "Wallis-et-Futuna"
+  ],
+  "WS": [
+    "Samoa",
+    "Independent State of Samoa"
+  ],
+  "XK": [
+    "Kosovo",
+    "Republic of Kosovo"
+  ],
+  "YE": [
+    "Yemen",
+    "Republic of Yemen",
+    "Iémen",
+    "Yémen"
+  ],
+  "YT": [
+    "Mayotte",
+    "Department of Mayotte"
+  ],
+  "ZA": [
+    "África do Sul",
+    "Africa do Sul",
+    "South Africa",
+    "Republic of South Africa",
+    "Sudáfrica",
+    "Afrique du Sud"
+  ],
+  "ZM": [
+    "Zambia",
+    "Republic of Zambia",
+    "Zâmbia",
+    "Zambie"
+  ],
+  "ZW": [
+    "Zimbabwe",
+    "Republic of Zimbabwe",
+    "Zimbabue"
+  ]
+}

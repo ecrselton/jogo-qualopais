@@ -1,0 +1,105 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section class="card ttt-card">
+  <div class="ttt-head">
+    <h2>Damas (1x1)</h2>
+    <a class="link-home" href="{{ url_for('home') }}">Voltar ao Quiz</a>
+  </div>
+
+  {% if not state %}
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="margin:0 0 8px;">Sala Online</h3>
+      <form method="post" action="{{ url_for('checkers_room_create') }}" class="grid-form">
+        <label for="room_blue_name">Seu nome (Time Azul)</label>
+        <input id="room_blue_name" name="blue_name" type="text" maxlength="24" value="Time Azul">
+        <label for="room_green_name">Nome sugerido Time Verde</label>
+        <input id="room_green_name" name="green_name" type="text" maxlength="24" value="Time Verde">
+        <button class="btn-primary span-2" type="submit">Criar Sala de Damas</button>
+      </form>
+      <form method="post" action="{{ url_for('checkers_room_join') }}" class="grid-form" style="margin-top:10px;">
+        <label for="join_room_code">Código da sala</label>
+        <input id="join_room_code" name="room_code" type="text" maxlength="6" placeholder="ABC123" required>
+        <label for="join_green_name">Seu nome (Time Verde)</label>
+        <input id="join_green_name" name="green_name" type="text" maxlength="24" value="Time Verde">
+        <button class="btn-ghost span-2" type="submit">Entrar na Sala</button>
+      </form>
+    </div>
+
+    <form method="post" action="{{ url_for('checkers_start') }}" class="grid-form">
+      <label for="blue_name">Time Azul</label>
+      <input id="blue_name" name="blue_name" type="text" maxlength="24" value="Time Azul">
+
+      <label for="green_name">Time Verde</label>
+      <input id="green_name" name="green_name" type="text" maxlength="24" value="Time Verde">
+
+      <button class="btn-primary span-2" type="submit">Iniciar Damas</button>
+    </form>
+  {% else %}
+    {% if view.room_code %}
+      <p class="feedback" style="margin-bottom:8px;">
+        Sala: <strong>{{ view.room_code }}</strong>
+        {% if view.room_role == 'b' %}(Você é Time Azul){% elif view.room_role == 'g' %}(Você é Time Verde){% endif %}
+      </p>
+      {% if view.waiting_room %}
+        <p class="feedback">Aguardando Time Verde entrar na sala.</p>
+      {% elif not view.can_play and not state.finished %}
+        <p class="feedback">Aguardando jogada do adversário...</p>
+      {% endif %}
+    {% endif %}
+
+    <div class="ttt-score">
+      <div>{{ state.blue_name }}: <strong>{{ state.score_blue }}</strong></div>
+      <div>Turno: <strong>{% if state.turn == 'b' %}{{ state.blue_name }}{% else %}{{ state.green_name }}{% endif %}</strong></div>
+      <div>{{ state.green_name }}: <strong>{{ state.score_green }}</strong></div>
+    </div>
+
+    <p class="feedback">{{ state.message }}</p>
+
+    <div class="checkers-board">
+      {% for cell in cells %}
+        <form method="post" action="{{ url_for('checkers_click', idx=cell.idx) }}" class="cell-form">
+          <button type="submit" class="ck-cell {% if cell.dark %}dark{% else %}light{% endif %} {% if cell.selected %}selected{% endif %} {% if cell.legal_from %}legal-from{% endif %} {% if cell.legal_target %}legal-target{% endif %}" {% if not cell.dark or state.finished or (view.room_code and (view.waiting_room or not view.can_play)) %}disabled{% endif %}>
+            {% if cell.piece %}
+              <span class="piece {% if cell.piece in ['b','B'] %}blue{% else %}green{% endif %}">
+                {% if cell.piece in ['B','G'] %}★{% else %}●{% endif %}
+              </span>
+            {% endif %}
+          </button>
+        </form>
+      {% endfor %}
+    </div>
+
+    <div class="ttt-actions">
+      <form method="post" action="{{ url_for('checkers_next') }}">
+        <button type="submit" class="btn-primary" {% if view.room_code and view.room_role != 'b' %}disabled{% endif %}>Nova Rodada</button>
+      </form>
+      {% if view.room_code %}
+        <form method="post" action="{{ url_for('checkers_room_leave') }}">
+          <button type="submit" class="btn-ghost">Sair da Sala</button>
+        </form>
+      {% else %}
+        <form method="post" action="{{ url_for('checkers_reset') }}">
+          <button type="submit" class="btn-ghost">Novo Jogo</button>
+        </form>
+      {% endif %}
+    </div>
+
+    {% if state.show_overlay and state.finished %}
+      <form id="checkersOverlay" method="post" action="{{ url_for('checkers_overlay_dismiss') }}" class="champion-overlay {% if state.winner == 'b' %}blue{% elif state.winner == 'g' %}green{% else %}draw{% endif %}">
+        <button type="submit" class="overlay-submit" aria-label="Continuar">
+          <span class="champion-box">
+            <span class="champion-title">{{ state.winner_name }}</span>
+            <span class="champion-sub">Parabéns! Vitória na Damas!</span>
+            <span class="champion-tip">Clique para continuar</span>
+          </span>
+        </button>
+      </form>
+    {% endif %}
+  {% endif %}
+</section>
+{% if view.auto_refresh %}
+  <script>
+    setTimeout(function () { window.location.reload(); }, 1600);
+  </script>
+{% endif %}
+{% endblock %}

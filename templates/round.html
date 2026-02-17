@@ -1,0 +1,89 @@
+﻿{% extends 'base.html' %}
+{% block body_class %}{% if info.mode == 'versus' %}turn-{{ info.turn_theme }}{% endif %}{% endblock %}
+{% block show_topbar %}{% endblock %}
+{% block content %}
+<section class="card game-card turn-{{ info.turn_theme }}">
+  <div class="in-game-nav">
+    {% if info.room_code %}
+      <span class="muted" style="margin-right:10px;">Sala: <strong>{{ info.room_code }}</strong></span>
+    {% endif %}
+    <a class="link-home" href="{{ url_for('home') }}">Nova Partida</a>
+  </div>
+
+  {% if info.overlay_effect == 'correct' %}
+    <div class="hit-overlay win">ACERTOU!</div>
+  {% elif info.overlay_effect == 'wrong' %}
+    <div class="hit-overlay lose">ERROU!</div>
+  {% endif %}
+
+  {% if info.mode == 'versus' %}
+    <div class="mega-score turn-{{ info.turn_theme }}">
+      <div class="team">{{ info.player1_name }} <span>{{ info.score_p1 }}</span></div>
+      <div class="vs">VS</div>
+      <div class="team">{{ info.player2_name }} <span>{{ info.score_p2 }}</span></div>
+      <div class="turn-big">Vez: {{ info.current_player_name }} {% if info.turn_theme == "blue" %}(Time Azul){% else %}(Time Verde){% endif %}</div>
+    </div>
+  {% endif %}
+
+  <div class="hud">
+    <div><span>Rodada</span><strong>{{ info.round_now }}/{{ info.round_total }}</strong></div>
+    {% if info.mode == 'versus' %}
+      <div><span>Turno</span><strong>{{ info.current_player_name }}</strong></div>
+      <div><span>Placar</span><strong>{{ info.player1_name }}: {{ info.score_p1 }} | {{ info.player2_name }}: {{ info.score_p2 }}</strong></div>
+    {% else %}
+      <div><span>Pontuacao</span><strong>{{ info.score_p1 }}</strong></div>
+    {% endif %}
+    <div><span>Tentativas</span><strong>{{ info.attempts_left }}</strong></div>
+    {% if info.flash_mode %}
+      <div><span>Tempo</span><strong id="timer">{{ info.round_time }}</strong></div>
+    {% endif %}
+  </div>
+
+  <p class="feedback">{{ info.feedback }}</p>
+
+  {% if info.visual_type == 'flag' %}
+    <div class="flag-wrap">
+      <img src="{{ url_for('serve_flag', filename=info.visual_value ~ '.png') }}" alt="Bandeira" class="flag-img">
+    </div>
+  {% else %}
+    <div class="country-wrap">
+      <div class="country-chip">{{ info.visual_value }}</div>
+    </div>
+  {% endif %}
+
+  <div class="options-grid">
+    {% for opt in info.options %}
+      <form method="post" action="{{ url_for('answer') }}">
+        <input type="hidden" name="code" value="{{ opt.code }}">
+        <button type="submit" class="btn-option" {% if not info.can_play or info.waiting_room %}disabled{% endif %}>{{ opt.label }}</button>
+      </form>
+    {% endfor %}
+  </div>
+
+  <form method="post" action="{{ url_for('skip') }}" id="skip-form" class="skip-row">
+    <button class="btn-ghost" type="submit" {% if not info.can_play or info.waiting_room %}disabled{% endif %}>Pular</button>
+  </form>
+</section>
+
+{% if info.flash_mode and info.can_play and not info.waiting_room %}
+<script>
+  let t = {{ info.round_time }};
+  const el = document.getElementById('timer');
+  const skipForm = document.getElementById('skip-form');
+  const tick = setInterval(() => {
+    t -= 1;
+    if (el) el.textContent = String(t);
+    if (t <= 0) {
+      clearInterval(tick);
+      if (skipForm) skipForm.submit();
+    }
+  }, 1000);
+</script>
+{% endif %}
+
+{% if info.auto_refresh %}
+<script>
+  setTimeout(() => window.location.reload(), 2500);
+</script>
+{% endif %}
+{% endblock %}

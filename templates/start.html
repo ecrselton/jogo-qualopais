@@ -1,0 +1,88 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section class="card config-card">
+  <h2>Configuracao da Partida</h2>
+  <p class="muted">Bandeiras validas: <strong>{{ available_flags }}</strong> | Paises com capital: <strong>{{ available_capitals }}</strong></p>
+
+  <div class="mode-pills" style="margin-bottom: 14px;">
+    <a class="btn-primary" href="{{ url_for('tictactoe') }}" style="text-decoration:none;display:inline-block;">Ir para Jogo da Velha</a>
+    <a class="btn-primary" href="{{ url_for('checkers') }}" style="text-decoration:none;display:inline-block;">Ir para Damas</a>
+  </div>
+
+  <form method="post" action="{{ url_for('start') }}" class="grid-form">
+    <label>Tipo de quiz</label>
+    <div class="mode-pills">
+      <label><input type="radio" name="quiz_type" value="flag_country" checked> Bandeira -> Pais</label>
+      <label><input type="radio" name="quiz_type" value="country_capital"> Pais -> Capital</label>
+    </div>
+
+    <label>Modo de partida</label>
+    <div class="mode-pills">
+      <label><input type="radio" name="mode" value="solo" checked> Solo</label>
+      <label><input type="radio" name="mode" value="versus"> 1x1 local</label>
+    </div>
+
+    <label for="player1_name">Nome Jogador 1</label>
+    <input id="player1_name" name="player1_name" type="text" maxlength="24" value="{{ default.player1_name }}">
+
+    <label for="player2_name">Nome Jogador 2</label>
+    <input id="player2_name" name="player2_name" type="text" maxlength="24" value="{{ default.player2_name }}">
+
+    <label for="rounds">Rodadas</label>
+    <input id="rounds" name="rounds" type="number" min="1" value="{{ default.rounds }}" required>
+
+    <label for="points_per_hit">Pontos por acerto</label>
+    <input id="points_per_hit" name="points_per_hit" type="number" min="1" value="{{ default.points_per_hit }}" required>
+
+    <label for="max_attempts">Tentativas por questao</label>
+    <input id="max_attempts" name="max_attempts" type="number" min="1" value="{{ default.max_attempts }}" required>
+
+    <label class="span-2"><input type="checkbox" name="flash_mode"> Modo Relampago</label>
+
+    <label for="round_time">Tempo por rodada (s)</label>
+    <input id="round_time" name="round_time" type="number" min="1" value="{{ default.round_time }}" required>
+
+    <button class="btn-primary span-2" type="submit">Comecar Agora (local)</button>
+  </form>
+
+  <hr style="margin: 18px 0; border: none; border-top: 1px solid #d8cfbe;">
+  <h3 style="margin-top:0;">Sala Online (1x1 em dispositivos diferentes)</h3>
+
+  <form method="post" action="{{ url_for('room_create') }}" class="grid-form" style="margin-top: 10px;">
+    <label for="room_host_name">Seu nome (Jogador 1)</label>
+    <input id="room_host_name" name="player1_name" type="text" maxlength="24" value="{{ default.player1_name }}">
+
+    <label for="room_quiz_type">Tipo de quiz</label>
+    <select id="room_quiz_type" name="quiz_type" style="padding:10px;border-radius:12px;border:1px solid #d8cfbe;">
+      <option value="flag_country">Bandeira -> Pais</option>
+      <option value="country_capital">Pais -> Capital</option>
+    </select>
+
+    <label for="room_rounds">Rodadas</label>
+    <input id="room_rounds" name="rounds" type="number" min="1" value="{{ default.rounds }}" required>
+
+    <label for="room_points">Pontos por acerto</label>
+    <input id="room_points" name="points_per_hit" type="number" min="1" value="{{ default.points_per_hit }}" required>
+
+    <label for="room_attempts">Tentativas por questao</label>
+    <input id="room_attempts" name="max_attempts" type="number" min="1" value="{{ default.max_attempts }}" required>
+
+    <label for="room_time">Tempo por rodada (s)</label>
+    <input id="room_time" name="round_time" type="number" min="1" value="{{ default.round_time }}" required>
+
+    <label class="span-2"><input type="checkbox" name="flash_mode"> Modo Relampago</label>
+
+    <button class="btn-primary span-2" type="submit">Criar Sala Online</button>
+  </form>
+
+  <form method="post" action="{{ url_for('room_join') }}" class="grid-form" style="margin-top: 10px;">
+    <label for="join_code">Codigo da sala</label>
+    <input id="join_code" name="room_code" type="text" maxlength="6" placeholder="ABC123" required>
+
+    <label for="join_name">Seu nome (Jogador 2)</label>
+    <input id="join_name" name="player2_name" type="text" maxlength="24" value="{{ default.player2_name }}" required>
+
+    <button class="btn-primary span-2" type="submit">Entrar na Sala</button>
+  </form>
+</section>
+{% endblock %}

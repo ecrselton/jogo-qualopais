@@ -1,0 +1,110 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section class="card ttt-card">
+  <div class="ttt-head">
+    <h2>Jogo da Velha</h2>
+    <a class="link-home" href="{{ url_for('home') }}">Voltar ao Quiz</a>
+  </div>
+
+  {% if not state %}
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="margin:0 0 8px;">Sala Online</h3>
+      <form method="post" action="{{ url_for('tictactoe_room_create') }}" class="grid-form">
+        <label for="room_p1_name">Seu nome (Jogador X)</label>
+        <input id="room_p1_name" name="p1_name" type="text" maxlength="24" value="Jogador X">
+        <label for="room_p2_name">Nome sugerido (Jogador O)</label>
+        <input id="room_p2_name" name="p2_name" type="text" maxlength="24" value="Jogador O">
+        <button class="btn-primary span-2" type="submit">Criar Sala da Velha</button>
+      </form>
+      <form method="post" action="{{ url_for('tictactoe_room_join') }}" class="grid-form" style="margin-top:10px;">
+        <label for="join_ttt_code">Código da sala</label>
+        <input id="join_ttt_code" name="room_code" type="text" maxlength="6" placeholder="ABC123" required>
+        <label for="join_ttt_name">Seu nome (Jogador O)</label>
+        <input id="join_ttt_name" name="p2_name" type="text" maxlength="24" value="Jogador O">
+        <button class="btn-ghost span-2" type="submit">Entrar na Sala</button>
+      </form>
+    </div>
+
+    <form method="post" action="{{ url_for('tictactoe_start') }}" class="grid-form">
+      <label>Modo</label>
+      <div class="mode-pills">
+        <label><input type="radio" name="mode" value="solo" checked> Solo (vs Computador)</label>
+        <label><input type="radio" name="mode" value="versus"> 1x1</label>
+      </div>
+
+      <label for="p1_name">Nome Jogador X</label>
+      <input id="p1_name" name="p1_name" type="text" maxlength="24" value="Jogador 1">
+
+      <label for="p2_name">Nome Jogador O</label>
+      <input id="p2_name" name="p2_name" type="text" maxlength="24" value="Computador">
+
+      <button class="btn-primary span-2" type="submit">Iniciar Jogo da Velha</button>
+    </form>
+  {% else %}
+    {% if view.room_code %}
+      <p class="feedback" style="margin-bottom:8px;">
+        Sala: <strong>{{ view.room_code }}</strong>
+        {% if view.room_role == 'X' %}(Você é X){% elif view.room_role == 'O' %}(Você é O){% endif %}
+      </p>
+      {% if view.waiting_room %}
+        <p class="feedback">Aguardando jogador O entrar na sala.</p>
+      {% elif not view.can_play and not state.finished %}
+        <p class="feedback">Aguardando jogada do adversário...</p>
+      {% endif %}
+    {% endif %}
+
+    <div class="ttt-score">
+      <div>{{ state.p1_name }} (X): <strong>{{ state.score_x }}</strong></div>
+      <div>Empates: <strong>{{ state.score_draw }}</strong></div>
+      <div>{{ state.p2_name }} (O): <strong>{{ state.score_o }}</strong></div>
+    </div>
+
+    <p class="feedback">{{ state.message }}</p>
+
+    <div class="ttt-board">
+      {% for i in range(9) %}
+        <form method="post" action="{{ url_for('tictactoe_move', pos=i) }}">
+          <button type="submit" class="ttt-cell {% if state.board[i] == 'X' %}x{% elif state.board[i] == 'O' %}o{% endif %}" {% if state.board[i] or state.finished or (view.room_code and (view.waiting_room or not view.can_play)) %}disabled{% endif %}>{{ state.board[i] }}</button>
+        </form>
+      {% endfor %}
+    </div>
+
+    <div class="ttt-actions">
+      <form method="post" action="{{ url_for('tictactoe_next') }}">
+        <button type="submit" class="btn-primary" {% if view.room_code and view.room_role != 'X' %}disabled{% endif %}>Próxima Rodada</button>
+      </form>
+      {% if view.room_code %}
+        <form method="post" action="{{ url_for('tictactoe_room_leave') }}">
+          <button type="submit" class="btn-ghost">Sair da Sala</button>
+        </form>
+      {% else %}
+        <form method="post" action="{{ url_for('tictactoe_reset') }}">
+          <button type="submit" class="btn-ghost">Novo Jogo</button>
+        </form>
+      {% endif %}
+    </div>
+
+    {% if state.finished and state.show_overlay %}
+      <form method="post" action="{{ url_for('tictactoe_overlay_dismiss') }}" id="tttOverlay" class="champion-overlay {% if state.winner == 'X' %}blue{% elif state.winner == 'O' %}green{% else %}draw{% endif %}">
+        <button type="submit" class="overlay-submit" aria-label="Continuar">
+          <span class="champion-box">
+            {% if state.winner == 'draw' %}
+              <span class="champion-title">EMPATE!</span>
+              <span class="champion-sub">Bela rodada dos dois!</span>
+            {% else %}
+              <span class="champion-title">{{ state.winner_name }}</span>
+              <span class="champion-sub">Parabéns! Você venceu!</span>
+            {% endif %}
+            <span class="champion-tip">Clique para continuar</span>
+          </span>
+        </button>
+      </form>
+    {% endif %}
+  {% endif %}
+</section>
+{% if view.auto_refresh %}
+  <script>
+    setTimeout(function () { window.location.reload(); }, 1600);
+  </script>
+{% endif %}
+{% endblock %}

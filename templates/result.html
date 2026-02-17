@@ -1,0 +1,69 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  {% if mode == 'versus' %}
+    <div id="championOverlay" class="champion-overlay {% if winner == player1_name %}blue{% elif winner == player2_name %}green{% else %}draw{% endif %}">
+      <div class="champion-box">
+        <div class="champion-title">{% if winner == 'Empate' %}EMPATE!{% else %}{{ winner }}{% endif %}</div>
+        <div class="champion-sub">Parabéns{% if winner != 'Empate' %}, time vencedor!{% else %}, os dois mandaram bem!{% endif %}</div>
+        <div class="champion-tip">Clique em qualquer lugar para continuar</div>
+      </div>
+    </div>
+  {% endif %}
+
+  <h2>Resultado Final</h2>
+
+  {% if mode == 'versus' %}
+    <p class="scoreline">Placar: <strong>{{ player1_name }} {{ score_p1 }}</strong> x <strong>{{ player2_name }} {{ score_p2 }}</strong></p>
+    <p class="winner">Vencedor: <strong>{{ winner }}</strong></p>
+  {% else %}
+    <p class="scoreline">Pontuação Total: <strong>{{ score_p1 }}</strong></p>
+  {% endif %}
+
+  <div class="stats-grid">
+    <div><span>Rodadas</span><strong>{{ total_rounds }}</strong></div>
+    <div><span>Acertos</span><strong>{{ total_hits }}</strong></div>
+    <div><span>Erros</span><strong>{{ total_errors }}</strong></div>
+    <div><span>Aproveitamento</span><strong>{{ percent }}%</strong></div>
+  </div>
+
+  <h3>Respostas Erradas</h3>
+  {% if errors %}
+    <div class="error-list">
+      {% for item in errors %}
+        <article>
+          {% if item.question_type == 'flag_country' %}
+            <img src="{{ url_for('serve_flag', filename=item.code ~ '.png') }}" alt="{{ item.code }}">
+          {% else %}
+            <div class="mini-country">{{ item.country }}</div>
+          {% endif %}
+          <div>
+            <p><strong>Rodada {{ item.round_no }}</strong> - {{ item.player }}</p>
+            {% if item.question_type == 'flag_country' %}
+              <p>Correto: {{ item.correct_answer }}</p>
+              <p>Você marcou: {{ item.selected }}</p>
+            {% else %}
+              <p>País: {{ item.country }}</p>
+              <p>Capital correta: {{ item.correct_answer }}</p>
+              <p>Você marcou: {{ item.selected }}</p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Nenhum erro. Partida perfeita.</p>
+  {% endif %}
+</section>
+
+{% if mode == 'versus' %}
+<script>
+  const overlay = document.getElementById('championOverlay');
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      overlay.classList.add('dismissed');
+    }, { once: true });
+  }
+</script>
+{% endif %}
+{% endblock %}
