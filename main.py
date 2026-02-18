@@ -1,7 +1,9 @@
 ﻿import json
 import os
 import random
+import re
 import string
+import unicodedata
 import uuid
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -50,7 +52,8 @@ class DataRepository:
             if not isinstance(values, list) or not values:
                 continue
             clean_code = str(code).upper().strip()
-            clean_values = [self._repair_text(str(v).strip()) for v in values if str(v).strip()]
+            clean_values = [self._sanitize_name(self._repair_text(str(v).strip())) for v in values if str(v).strip()]
+            clean_values = [v for v in clean_values if v]
             clean_values = list(dict.fromkeys(clean_values))
             primary = self._pick_primary_name(clean_code, clean_values)
             if primary in clean_values:
@@ -96,12 +99,14 @@ class DataRepository:
 
     @staticmethod
     def _name_penalty(value: str) -> int:
-        v = value.lower()
+        folded = DataRepository._fold_text(value).lower()
         penalty = 0
         if "?" in value:
             penalty += 60
         if value.isupper() and len(value) <= 4:
             penalty += 35
+        if any((not (ch.isalnum() or ch in " '-")) for ch in value):
+            penalty += 25
         formal_tokens = (
             "republic",
             "kingdom",
@@ -109,18 +114,43 @@ class DataRepository:
             "commonwealth",
             "collectivity",
             "territory",
+            "territorio",
             "nation of",
             "state of",
             "federative",
             "plurinational",
             "islamic republic",
             "people's republic",
+            "ilhas",
+            "islands",
         )
         for token in formal_tokens:
-            if token in v:
+            if token in folded:
                 penalty += 25
                 break
+        if len(value.split()) > 4:
+            penalty += 15
         return penalty + (len(value) // 10)
+
+    @staticmethod
+    def _sanitize_name(value: str) -> str:
+        if not value:
+            return ""
+        cleaned = " ".join(value.split()).strip()
+        if "?" in cleaned:
+            return ""
+        replacements = {
+            "ilha da curacao": "Curacao",
+        }
+        low = DataRepository._fold_text(cleaned).lower()
+        if low in replacements:
+            return replacements[low]
+        return cleaned
+
+    @staticmethod
+    def _fold_text(value: str) -> str:
+        normalized = unicodedata.normalize("NFD", value)
+        return "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
 
     def _pick_primary_name(self, code: str, names: List[str]) -> str:
         if not names:
@@ -131,10 +161,18 @@ class DataRepository:
             "FR": "França",
             "DE": "Alemanha",
             "GB": "Reino Unido",
+            "GB-WLS": "Pais de Gales",
+            "GB-SCT": "Escocia",
+            "GB-NIR": "Irlanda do Norte",
+            "GB-ENG": "Inglaterra",
+            "CW": "Curacao",
         }
         forced_name = forced.get(code)
-        if forced_name and forced_name in names:
-            return forced_name
+        if forced_name:
+            forced_fold = self._fold_text(forced_name).lower()
+            for candidate in names:
+                if self._fold_text(candidate).lower() == forced_fold:
+                    return candidate
         return min(names, key=self._name_penalty)
 
 
