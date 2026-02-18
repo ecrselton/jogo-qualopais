@@ -9,10 +9,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from flask import Flask, flash, redirect, render_template, request, send_from_directory, session, url_for
-try:
-    from babel import Locale
-except Exception:
-    Locale = None
 
 BASE_DIR = Path(__file__).resolve().parent
 FLAGS_DIR = BASE_DIR / "flags"
@@ -177,30 +173,47 @@ class DataRepository:
 
     @staticmethod
     def _build_pt_country_names() -> Dict[str, str]:
-        names: Dict[str, str] = {
+        return {
+            "US": "Estados Unidos",
+            "BR": "Brasil",
+            "FR": "França",
+            "DE": "Alemanha",
+            "GB": "Reino Unido",
             "GB-ENG": "Inglaterra",
             "GB-NIR": "Irlanda do Norte",
             "GB-SCT": "Escócia",
             "GB-WLS": "País de Gales",
             "ZA": "África do Sul",
             "TR": "Turquia",
+            "BQ": "Países Baixos Caribenhos",
+            "CW": "Curaçao",
         }
-        if Locale is None:
-            return names
-        try:
-            pt_locale = Locale.parse("pt")
-            territories = dict(pt_locale.territories.items())
-            for code, label in territories.items():
-                if not isinstance(code, str) or not isinstance(label, str):
-                    continue
-                clean_code = code.strip().upper()
-                if len(clean_code) == 2 and clean_code.isalpha():
-                    names[clean_code] = label.strip()
-        except Exception:
-            return names
-        names["ZA"] = "África do Sul"
-        names["TR"] = "Turquia"
-        return names
+
+    @staticmethod
+    def _pt_score(value: str) -> int:
+        v = DataRepository._fold_text(value).lower()
+        score = 0
+        pt_tokens = (
+            "do ", "da ", "de ", "dos ", "das ", " e ",
+            "ilha", "ilhas", "sao", "costa",
+            "sul", "norte", "unidos", "arabes", "coreia",
+            "guine", "marfim", "holanda", "reino", "paises",
+            "baixos", "caribenhos", "turquia", "franca",
+            "franca", "alemanha", "espanha", "italia",
+        )
+        for token in pt_tokens:
+            if token in v:
+                score += 2
+
+        bad_tokens = (
+            "republic of", "kingdom of", " and ", "the ", "islands",
+            "republique", "royaume", " et ", "iles", "new ",
+            " y ", "cion", "neerlandes",
+        )
+        for token in bad_tokens:
+            if token in v:
+                score -= 2
+        return score
 
     @staticmethod
     def _build_pt_capital_names() -> Dict[str, str]:
@@ -270,19 +283,25 @@ class DataRepository:
             pt_fold = self._fold_text(pt_name).lower()
             for candidate in names:
                 if self._fold_text(candidate).lower() == pt_fold:
-                    return candidate
+                    return pt_name
             return pt_name
+        best_pt = max(names, key=lambda n: (self._pt_score(n), -self._name_penalty(n)))
+        if self._pt_score(best_pt) > 0:
+            return best_pt
         return self._pick_primary_name(code, names)
 
     def _pick_primary_capital_name(self, code: str, names: List[str]) -> str:
         if not names:
             return ""
+        best_pt = max(names, key=lambda n: (self._pt_score(n), -self._name_penalty(n)))
+        if self._pt_score(best_pt) > 0:
+            return best_pt
         pt_capital = self.pt_capital_names.get(code, "")
         if pt_capital:
             pt_fold = self._fold_text(pt_capital).lower()
             for candidate in names:
                 if self._fold_text(candidate).lower() == pt_fold:
-                    return candidate
+                    return pt_capital
             return pt_capital
         return self._pick_primary_name(code, names)
 

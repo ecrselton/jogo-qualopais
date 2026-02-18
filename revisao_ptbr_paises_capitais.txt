@@ -1,0 +1,246 @@
+﻿AD | Andorra | Andorra la Vella
+AE | Emirados Árabes Unidos | Abu Dhabi
+AF | Afghanistan | Kabul
+AG | Antígua e Barbuda | Saint John's
+AI | Anguilla | The Valley
+AL | Albania | Tirana
+AM | Armenia | Yerevan
+AO | Angola | Luanda
+AR | Argentina | Buenos Aires
+AS | American Samoa | Pago Pago
+AT | Austria | Viena
+AU | Austrália | Camberra
+AW | Aruba | Oranjestad
+AX | Alândia | Mariehamn
+AZ | Azerbaijan | Baku
+BA | Bósnia e Herzegovina | Sarajevo
+BB | Barbados | Bridgetown
+BD | Bangladesh | Dhaka
+BE | Bélgica | Bruxelas
+BF | Burkina Faso | Ouagadougou
+BG | Bulgaria | Sofia
+BH | Bahrain | Manama
+BI | Burundi | Gitega
+BJ | Benin | Porto-Novo
+BL | São Bartolomeu | Gustavia
+BM | Bermuda | Hamilton
+BN | Nation of Brunei, Abode of Peace | Bandar Seri Begawan
+BO | Bolívia | Sucre
+BQ | Países Baixos Caribenhos | Kralendijk
+BR | Brasil | Brasília
+BS | Bahamas | Nassau
+BT | Bhutan | Thimphu
+BW | Botswana | Gaborone
+BY | Belarus | Minsk
+BZ | Belize | Belmopan
+CA | Canadá | Ottawa
+CC | Ilhas Cocos (Keeling) | West Island
+CD | República Democrática do Congo | Kinshasa
+CF | République centrafricaine | Bangui
+CG | Congo | Brazzaville
+CH | Suíça | Berna
+CI | Costa do Marfim | Yamoussoukro
+CK | Ilhas Cook | Avarua
+CL | Chile | Santiago
+CM | Cameroon | Yaoundé
+CN | República Popular da China | Pequim
+CO | Colômbia | Bogotá
+CR | Costa Rica | San José
+CU | Cuba | Havana
+CV | Cape Verde | Praia
+CW | Curacao | Willemstad
+CX | Ilha do Natal | Flying Fish Cove
+CY | Cyprus | Nicosia
+CZ | Czechia | Praga
+DE | Alemanha | Berlim
+DJ | Djibouti | Djibouti
+DK | Denmark | Copenhague
+DM | Dominica | Roseau
+DO | République dominicaine | Santo Domingo
+DZ | Algeria | Algiers
+EC | Ecuador | Quito
+EE | Estonia | Tallinn
+EG | Egypt | Cairo
+EH | Western Sahara | El Aaiún
+ER | Eritrea | Asmara
+ES | Espanha | Madri
+ET | Ethiopia | Addis Ababa
+FI | Finlândia | Helsinque
+FJ | Fiji | Suva
+FK | Ilhas Malvinas | Stanley
+FM | Micronesia | Palikir
+FO | Ilhas Faroé | Tórshavn
+FR | França | Paris
+GA | Gabon | Libreville
+GB | Reino Unido | Londres
+GD | Grenada | St. George's
+GE | Georgia | Tbilisi
+GF | Guiana | Cayenne
+GG | Guernsey | St. Peter Port
+GH | Ghana | Accra
+GI | Gibraltar | Gibraltar
+GL | Greenland | Nuuk
+GM | Gambia | Banjul
+GN | Guinea | Conakry
+GP | Guadalupe | Basse-Terre
+GQ | Equatorial Guinea | Malabo
+GR | Greece | Atenas
+GS | Ilhas Geórgia do Sul e Sandwich do Sul | King Edward Point
+GT | Guatemala | Guatemala City
+GU | Guam | Hagåtña
+GW | Guinea-Bissau | Bissau
+GY | Guyana | Georgetown
+HK | Hong Kong | City of Victoria
+HN | Honduras | Tegucigalpa
+HR | Croatia | Zagreb
+HT | Haiti | Port-au-Prince
+HU | Hungary | Budapeste
+ID | Indonesia | Jakarta
+IE | Ireland | Dublin
+IL | Israel | Jerusalem
+IM | Ilha de Man | Douglas
+IN | Índia | New Delhi
+IO | Territoire britannique de l'océan Indien | Diego Garcia
+IQ | Iraq | Baghdad
+IR | Iran | Teerã
+IS | Iceland | Reykjavik
+IT | Itália | Roma
+JE | Jersey | Saint Helier
+JM | Jamaica | Kingston
+JO | Jordan | Amman
+JP | Japão | Tóquio
+KE | Kenya | Nairobi
+KG | Kyrgyzstan | Bishkek
+KH | Cambodia | Phnom Penh
+KI | Kiribati | South Tarawa
+KM | Comoros | Moroni
+KN | São Cristóvão e Nevis | Basseterre
+KP | Coreia do Norte | Pyongyang
+KR | Coreia do Sul | Seul
+KW | Kuwait | Kuwait City
+KY | Ilhas Caimão | George Town
+KZ | Kazakhstan | Astana
+LA | Laos | Vientiane
+LB | Lebanon | Beirut
+LC | Saint Lucia | Castries
+LI | Liechtenstein | Vaduz
+LK | Sri Lanka | Sri Jayawardenepura Kotte
+LR | Liberia | Monrovia
+LS | Lesotho | Maseru
+LT | Lithuania | Vilnius
+LU | Luxembourg | Luxembourg
+LV | Latvia | Riga
+LY | Libya | Tripoli
+MA | Morocco | Rabat
+MC | Monaco | Monaco
+MD | Moldova | Chișinău
+ME | Montenegro | Podgorica
+MF | São Martinho | Marigot
+MG | Madagascar | Antananarivo
+MH | Ilhas Marshall | Majuro
+MK | Macedónia do Norte | Skopje
+ML | Mali | Bamako
+MM | Myanmar | Naypyidaw
+MN | Mongolia | Ulan Bator
+MP | Islas Marianas del Norte | Saipan
+MQ | Martinica | Fort-de-France
+MR | Mauritania | Nouakchott
+MS | Montserrat | Plymouth
+MT | Malta | Valletta
+MU | Mauritius | Port Louis
+MV | Maldives | Malé
+MW | Malawi | Lilongwe
+MX | México | Cidade do México
+MY | Malaysia | Kuala Lumpur
+MZ | Mozambique | Maputo
+NA | Namibia | Windhoek
+NC | Nova Caledónia | Nouméa
+NE | Niger | Niamey
+NF | Isla de Norfolk | Kingston
+NG | Nigéria | Abuja
+NI | Nicaragua | Managua
+NL | Países Baixos | Amsterdã
+NO | Norway | Oslo
+NP | Nepal | Kathmandu
+NR | Nauru | Yaren
+NU | Niue | Alofi
+NZ | Nova Zelândia | Wellington
+OM | Sultanate of Oman | Muscat
+PA | Panama | Panama City
+PE | Peru | Lima
+PF | Polynésie française | Papeetē
+PG | Papua Nova Guiné | Port Moresby
+PH | Filipinas | Manila
+PK | Pakistan | Islamabad
+PL | Polônia | Varsóvia
+PM | Saint-Pierre e Miquelon | Saint-Pierre
+PN | Ilhas Pitcairn | Adamstown
+PR | Puerto Rico | San Juan
+PS | Palestine | Ramallah
+PT | Portugal | Lisboa
+PW | Palau | Ngerulmud
+PY | Paraguai | Assunção
+QA | Qatar | Doha
+RE | Réunion | Saint-Denis
+RO | Romania | Bucareste
+RS | Serbia | Belgrade
+RU | Rússia | Moscou
+RW | Rwanda | Kigali
+SA | Arabie Saoudite | Riade
+SB | Ilhas Salomão | Honiara
+SC | Seicheles | Victoria
+SD | Sudan | Khartoum
+SE | Suécia | Estocolmo
+SG | Singapore | Singapore
+SH | Santa Helena, Ascensão e Tristão da Cunha | Jamestown
+SI | Slovenia | Ljubljana
+SJ | Ilhas Svalbard e Jan Mayen | Longyearbyen
+SK | Slovakia | Bratislava
+SL | Sierra Leone | Freetown
+SM | San Marino | City of San Marino
+SN | Senegal | Dakar
+SO | Somalia | Mogadishu
+SR | Suriname | Paramaribo
+SS | Sudão do Sul | Juba
+ST | São Tomé e Príncipe | São Tomé
+SV | Salvador | San Salvador
+SX | São Martinho | Philipsburg
+SY | Syria | Damascus
+SZ | Eswatini | Mbabane
+TC | Ilhas Turks e Caicos | Cockburn Town
+TD | Chad | N'Djamena
+TF | Terras Austrais e Antárticas Francesas | Port-aux-Français
+TG | Togo | Lomé
+TH | Thailand | Bangkok
+TJ | Tajikistan | Dushanbe
+TK | Tokelau | Fakaofo
+TL | Timor-Leste | Dili
+TM | Turkmenistan | Ashgabat
+TN | Tunisia | Tunis
+TO | Tonga | Nuku'alofa
+TR | Turquia | Ancara
+TT | Trinidade e Tobago | Port of Spain
+TV | Tuvalu | Funafuti
+TW | Ilha Formosa | Taipei
+TZ | Tanzania | Dodoma
+UA | Ukraine | Kiev
+UG | Uganda | Kampala
+UM | Ilhas Menores Distantes dos Estados Unidos | Washington DC
+US | Estados Unidos | Washington
+UY | Uruguai | Montevidéu
+UZ | Uzbekistan | Tashkent
+VA | Cidade do Vaticano | Vatican City
+VC | São Vincente e Granadinas | Kingstown
+VE | Venezuela | Caracas
+VG | Ilhas Virgens | Road Town
+VI | Ilhas Virgens dos Estados Unidos | Charlotte Amalie
+VN | Vietnam | Hanoi
+VU | Vanuatu | Port Vila
+WF | Wallis e Futuna | Mata-Utu
+WS | Samoa | Apia
+XK | Kosovo | Pristina
+YE | Yemen | Sana'a
+YT | Mayotte | Mamoudzou
+ZA | África do Sul | Pretória
+ZM | Zambia | Lusaka
+ZW | Zimbabwe | Harare
