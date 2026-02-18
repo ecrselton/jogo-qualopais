@@ -9,6 +9,10 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from flask import Flask, flash, redirect, render_template, request, send_from_directory, session, url_for
+try:
+    from babel import Locale
+except Exception:
+    Locale = None
 
 BASE_DIR = Path(__file__).resolve().parent
 FLAGS_DIR = BASE_DIR / "flags"
@@ -35,6 +39,7 @@ class DataRepository:
         self.flags_dir = flags_dir
         self.countries: Dict[str, List[str]] = {}
         self.capitals: Dict[str, List[str]] = {}
+        self.pt_country_names = self._build_pt_country_names()
 
     def load(self) -> None:
         self.countries = self._load_map(self.countries_file, "countries.json")
@@ -54,6 +59,12 @@ class DataRepository:
             clean_code = str(code).upper().strip()
             clean_values = [self._sanitize_name(self._repair_text(str(v).strip())) for v in values if str(v).strip()]
             clean_values = [v for v in clean_values if v]
+            if label == "countries.json":
+                pt_name = self.pt_country_names.get(clean_code, "")
+                if pt_name:
+                    already = {self._fold_text(v).lower() for v in clean_values}
+                    if self._fold_text(pt_name).lower() not in already:
+                        clean_values.insert(0, pt_name)
             clean_values = list(dict.fromkeys(clean_values))
             primary = self._pick_primary_name(clean_code, clean_values)
             if primary in clean_values:
@@ -152,6 +163,31 @@ class DataRepository:
         normalized = unicodedata.normalize("NFD", value)
         return "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
 
+    @staticmethod
+    def _build_pt_country_names() -> Dict[str, str]:
+        names: Dict[str, str] = {
+            "GB-ENG": "Inglaterra",
+            "GB-NIR": "Irlanda do Norte",
+            "GB-SCT": "Escócia",
+            "GB-WLS": "País de Gales",
+            "ZA": "África do Sul",
+        }
+        if Locale is None:
+            return names
+        try:
+            pt_locale = Locale.parse("pt")
+            territories = dict(pt_locale.territories.items())
+            for code, label in territories.items():
+                if not isinstance(code, str) or not isinstance(label, str):
+                    continue
+                clean_code = code.strip().upper()
+                if len(clean_code) == 2 and clean_code.isalpha():
+                    names[clean_code] = label.strip()
+        except Exception:
+            return names
+        names["ZA"] = "África do Sul"
+        return names
+
     def _pick_primary_name(self, code: str, names: List[str]) -> str:
         if not names:
             return ""
@@ -166,6 +202,7 @@ class DataRepository:
             "GB-NIR": "Irlanda do Norte",
             "GB-ENG": "Inglaterra",
             "CW": "Curacao",
+            "ZA": "Africa do Sul",
         }
         forced_name = forced.get(code)
         if forced_name:
