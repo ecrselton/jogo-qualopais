@@ -66,7 +66,10 @@ class DataRepository:
                     if self._fold_text(pt_name).lower() not in already:
                         clean_values.insert(0, pt_name)
             clean_values = list(dict.fromkeys(clean_values))
-            primary = self._pick_primary_name(clean_code, clean_values)
+            if label == "countries.json":
+                primary = self._pick_primary_country_name(clean_code, clean_values)
+            else:
+                primary = self._pick_primary_name(clean_code, clean_values)
             if primary in clean_values:
                 clean_values.remove(primary)
                 clean_values.insert(0, primary)
@@ -171,6 +174,7 @@ class DataRepository:
             "GB-SCT": "Escócia",
             "GB-WLS": "País de Gales",
             "ZA": "África do Sul",
+            "TR": "Turquia",
         }
         if Locale is None:
             return names
@@ -186,6 +190,7 @@ class DataRepository:
         except Exception:
             return names
         names["ZA"] = "África do Sul"
+        names["TR"] = "Turquia"
         return names
 
     def _pick_primary_name(self, code: str, names: List[str]) -> str:
@@ -211,6 +216,18 @@ class DataRepository:
                 if self._fold_text(candidate).lower() == forced_fold:
                     return candidate
         return min(names, key=self._name_penalty)
+
+    def _pick_primary_country_name(self, code: str, names: List[str]) -> str:
+        if not names:
+            return ""
+        pt_name = self.pt_country_names.get(code, "")
+        if pt_name:
+            pt_fold = self._fold_text(pt_name).lower()
+            for candidate in names:
+                if self._fold_text(candidate).lower() == pt_fold:
+                    return candidate
+            return pt_name
+        return self._pick_primary_name(code, names)
 
 
 repo = DataRepository(COUNTRIES_FILE, CAPITALS_FILE, FLAGS_DIR)
