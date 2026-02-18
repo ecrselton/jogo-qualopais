@@ -40,6 +40,7 @@ class DataRepository:
         self.countries: Dict[str, List[str]] = {}
         self.capitals: Dict[str, List[str]] = {}
         self.pt_country_names = self._build_pt_country_names()
+        self.pt_capital_names = self._build_pt_capital_names()
 
     def load(self) -> None:
         self.countries = self._load_map(self.countries_file, "countries.json")
@@ -65,9 +66,17 @@ class DataRepository:
                     already = {self._fold_text(v).lower() for v in clean_values}
                     if self._fold_text(pt_name).lower() not in already:
                         clean_values.insert(0, pt_name)
+            elif label == "capitals.json":
+                pt_capital = self.pt_capital_names.get(clean_code, "")
+                if pt_capital:
+                    already = {self._fold_text(v).lower() for v in clean_values}
+                    if self._fold_text(pt_capital).lower() not in already:
+                        clean_values.insert(0, pt_capital)
             clean_values = list(dict.fromkeys(clean_values))
             if label == "countries.json":
                 primary = self._pick_primary_country_name(clean_code, clean_values)
+            elif label == "capitals.json":
+                primary = self._pick_primary_capital_name(clean_code, clean_values)
             else:
                 primary = self._pick_primary_name(clean_code, clean_values)
             if primary in clean_values:
@@ -193,6 +202,42 @@ class DataRepository:
         names["TR"] = "Turquia"
         return names
 
+    @staticmethod
+    def _build_pt_capital_names() -> Dict[str, str]:
+        return {
+            "AT": "Viena",
+            "AU": "Camberra",
+            "BR": "Brasília",
+            "CH": "Berna",
+            "CN": "Pequim",
+            "CZ": "Praga",
+            "DE": "Berlim",
+            "DK": "Copenhague",
+            "ES": "Madri",
+            "FI": "Helsinque",
+            "GB": "Londres",
+            "GR": "Atenas",
+            "HU": "Budapeste",
+            "IR": "Teerã",
+            "IT": "Roma",
+            "JP": "Tóquio",
+            "KR": "Seul",
+            "MX": "Cidade do México",
+            "NL": "Amsterdã",
+            "NO": "Oslo",
+            "PE": "Lima",
+            "PL": "Varsóvia",
+            "PT": "Lisboa",
+            "PY": "Assunção",
+            "RO": "Bucareste",
+            "RU": "Moscou",
+            "SE": "Estocolmo",
+            "TR": "Ancara",
+            "UA": "Kiev",
+            "UY": "Montevidéu",
+            "VE": "Caracas",
+        }
+
     def _pick_primary_name(self, code: str, names: List[str]) -> str:
         if not names:
             return ""
@@ -227,6 +272,18 @@ class DataRepository:
                 if self._fold_text(candidate).lower() == pt_fold:
                     return candidate
             return pt_name
+        return self._pick_primary_name(code, names)
+
+    def _pick_primary_capital_name(self, code: str, names: List[str]) -> str:
+        if not names:
+            return ""
+        pt_capital = self.pt_capital_names.get(code, "")
+        if pt_capital:
+            pt_fold = self._fold_text(pt_capital).lower()
+            for candidate in names:
+                if self._fold_text(candidate).lower() == pt_fold:
+                    return candidate
+            return pt_capital
         return self._pick_primary_name(code, names)
 
 
