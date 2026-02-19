@@ -10,6 +10,10 @@ from typing import Dict, List, Optional, Set, Tuple
 
 from flask import Flask, flash, redirect, render_template, request, send_from_directory, session, url_for
 try:
+    from babel import Locale
+except Exception:
+    Locale = None
+try:
     from pycountry_convert import country_alpha2_to_continent_code
 except Exception:
     country_alpha2_to_continent_code = None
@@ -93,7 +97,7 @@ class DataRepository:
                 primary = self._pick_primary_name(clean_code, clean_values)
             if primary in clean_values:
                 clean_values.remove(primary)
-                clean_values.insert(0, primary)
+            clean_values.insert(0, primary)
             if clean_code and clean_values:
                 prepared[clean_code] = clean_values
 
@@ -189,7 +193,7 @@ class DataRepository:
 
     @staticmethod
     def _build_pt_country_names() -> Dict[str, str]:
-        return {
+        names = {
             "US": "Estados Unidos",
             "BR": "Brasil",
             "FR": "França",
@@ -206,6 +210,39 @@ class DataRepository:
             "BQ": "Países Baixos Caribenhos",
             "CW": "Curaçao",
         }
+        if Locale is not None:
+            try:
+                loc = Locale.parse("pt_BR")
+                for code, label in dict(loc.territories.items()).items():
+                    if not isinstance(code, str) or not isinstance(label, str):
+                        continue
+                    c = code.strip().upper()
+                    if len(c) == 2 and c.isalpha():
+                        names[c] = label.strip()
+            except Exception:
+                pass
+        # Keep explicit overrides when CLDR differs from preferred game wording.
+        names["US"] = "Estados Unidos"
+        names["GB"] = "Reino Unido"
+        names["ZA"] = "África do Sul"
+        names["TR"] = "Turquia"
+        names["GY"] = "Guiana"
+        names["GF"] = "Guiana Francesa"
+        names["BQ"] = "Países Baixos Caribenhos"
+        names["CW"] = "Curaçao"
+        names["GL"] = "Groenlândia"
+        names["KE"] = "Quênia"
+        names["KN"] = "São Cristóvão e Névis"
+        names["LV"] = "Letônia"
+        names["RO"] = "Romênia"
+        names["SI"] = "Eslovênia"
+        names["YE"] = "Iêmen"
+        names["ZW"] = "Zimbábue"
+        names["GB-ENG"] = "Inglaterra"
+        names["GB-NIR"] = "Irlanda do Norte"
+        names["GB-SCT"] = "Escócia"
+        names["GB-WLS"] = "País de Gales"
+        return names
 
     @staticmethod
     def _pt_score(value: str) -> int:
