@@ -6,9 +6,13 @@ import string
 import unicodedata
 import uuid
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 from flask import Flask, flash, redirect, render_template, request, send_from_directory, session, url_for
+try:
+    from pycountry_convert import country_alpha2_to_continent_code
+except Exception:
+    country_alpha2_to_continent_code = None
 
 BASE_DIR = Path(__file__).resolve().parent
 FLAGS_DIR = BASE_DIR / "flags"
@@ -18,6 +22,7 @@ CAPITALS_FILE = BASE_DIR / "capitals.json"
 DEFAULT_CONFIG = {
     "mode": "solo",
     "quiz_type": "flag_country",
+    "continent_filter": "all",
     "player1_name": "Jogador 1",
     "player2_name": "Jogador 2",
     "rounds": 50,
@@ -25,6 +30,17 @@ DEFAULT_CONFIG = {
     "max_attempts": 2,
     "flash_mode": False,
     "round_time": 7,
+}
+
+CONTINENT_LABELS = {
+    "all": "Todos os países",
+    "AF": "África",
+    "AN": "Antártida",
+    "AS": "Ásia",
+    "EU": "Europa",
+    "NA": "América do Norte",
+    "OC": "Oceania",
+    "SA": "América do Sul",
 }
 
 
@@ -319,6 +335,42 @@ if len(AVAILABLE_BY_QUIZ["flag_country"]) < 6:
 if len(AVAILABLE_BY_QUIZ["country_capital"]) < 6:
     raise RuntimeError("São necessários pelo menos 6 países com capital para o modo País -> Capital.")
 
+
+def _base_country_code(code: str) -> str:
+    return code.split("-", 1)[0].upper()
+
+
+def _continent_for_code(code: str) -> str:
+    base = _base_country_code(code)
+    if country_alpha2_to_continent_code is None:
+        return "all"
+    # Special sub-country codes reused by the game.
+    if base == "GB":
+        return "EU"
+    try:
+        return str(country_alpha2_to_continent_code(base))
+    except Exception:
+        return "all"
+
+
+def _build_available_by_continent() -> Dict[str, Dict[str, List[str]]]:
+    by_continent: Dict[str, Dict[str, List[str]]] = {
+        quiz: {"all": list(pool)} for quiz, pool in AVAILABLE_BY_QUIZ.items()
+    }
+    for quiz_type, pool in AVAILABLE_BY_QUIZ.items():
+        for code in pool:
+            cont = _continent_for_code(code)
+            if cont not in CONTINENT_LABELS or cont == "all":
+                continue
+            by_continent[quiz_type].setdefault(cont, []).append(code)
+    for quiz_type in by_continent:
+        for cont in by_continent[quiz_type]:
+            by_continent[quiz_type][cont] = sorted(by_continent[quiz_type][cont])
+    return by_continent
+
+
+AVAILABLE_BY_CONTINENT = _build_available_by_continent()
+
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLAG_GAME_SECRET", "dev-secret-change-me")
 GAME_STORE: Dict[str, Dict[str, object]] = {}
@@ -338,8 +390,22 @@ TTT_WIN_LINES = (
 CHECKERS_DARK = {(r, c) for r in range(8) for c in range(8) if (r + c) % 2 == 1}
 
 
-def _pool_for_quiz(quiz_type: str) -> List[str]:
-    return AVAILABLE_BY_QUIZ.get(quiz_type, AVAILABLE_BY_QUIZ["flag_country"])
+def _pool_for_quiz(quiz_type: str, continent_filter: str = "all") -> List[str]:
+    quiz = quiz_type if quiz_type in AVAILABLE_BY_QUIZ else "flag_country"
+    continent = continent_filter if continent_filter in CONTINENT_LABELS else "all"
+    if continent == "all":
+        return AVAILABLE_BY_QUIZ[quiz]
+    return AVAILABLE_BY_CONTINENT.get(quiz, {}).get(continent, [])
+
+
+def _continent_options_for_quiz(quiz_type: str) -> List[Tuple[str, str, int]]:
+    quiz = quiz_type if quiz_type in AVAILABLE_BY_QUIZ else "flag_country"
+    options: List[Tuple[str, str, int]] = []
+    for cont_code, cont_label in CONTINENT_LABELS.items():
+        count = len(_pool_for_quiz(quiz, cont_code))
+        if cont_code == "all" or count > 0:
+            options.append((cont_code, cont_label, count))
+    return options
 
 
 def _upgrade_state(state: Optional[Dict[str, object]]) -> Optional[Dict[str, object]]:
@@ -353,6 +419,7 @@ def _upgrade_state(state: Optional[Dict[str, object]]) -> Optional[Dict[str, obj
 
     config.setdefault("mode", DEFAULT_CONFIG["mode"])
     config.setdefault("quiz_type", DEFAULT_CONFIG["quiz_type"])
+    config.setdefault("continent_filter", DEFAULT_CONFIG["continent_filter"])
     config.setdefault("player1_name", DEFAULT_CONFIG["player1_name"])
     config.setdefault("player2_name", DEFAULT_CONFIG["player2_name"])
     config.setdefault("rounds", DEFAULT_CONFIG["rounds"])
@@ -363,6 +430,8 @@ def _upgrade_state(state: Optional[Dict[str, object]]) -> Optional[Dict[str, obj
 
     if config["quiz_type"] not in AVAILABLE_BY_QUIZ:
         config["quiz_type"] = DEFAULT_CONFIG["quiz_type"]
+    if config["continent_filter"] not in CONTINENT_LABELS:
+        config["continent_filter"] = DEFAULT_CONFIG["continent_filter"]
 
     state.setdefault("order", [])
     state.setdefault("round_index", 0)
@@ -850,7 +919,7 @@ def _ck_click_cell(state: Dict[str, object], idx: int) -> None:
 
 
 def _new_state(config: Dict[str, object]) -> Dict[str, object]:
-    pool = _pool_for_quiz(str(config["quiz_type"]))
+    pool = _pool_for_quiz(str(config["quiz_type"]), str(config.get("continent_filter", "all")))
     requested_rounds = int(config["rounds"])
     rounds = min(requested_rounds, len(pool))
     order = random.sample(pool, rounds)
@@ -890,11 +959,12 @@ def _correct_answer_label(quiz_type: str, code: str) -> str:
     return _label_for_code(quiz_type, code)
 
 
-def _build_options(quiz_type: str, correct_code: str) -> List[str]:
-    pool = _pool_for_quiz(quiz_type)
+def _build_options(quiz_type: str, correct_code: str, continent_filter: str) -> List[str]:
+    pool = _pool_for_quiz(quiz_type, continent_filter)
     distractors = [code for code in pool if code != correct_code]
     random.shuffle(distractors)
-    options = [correct_code] + distractors[:5]
+    max_options = min(6, len(pool))
+    options = [correct_code] + distractors[:max_options - 1]
     random.shuffle(options)
     return options
 
@@ -905,7 +975,8 @@ def _ensure_options(state: Dict[str, object]) -> None:
         return
     if state.get("options_for_code") != code:
         quiz_type = str(state["config"]["quiz_type"])
-        state["options"] = _build_options(quiz_type, code)
+        continent_filter = str(state["config"].get("continent_filter", "all"))
+        state["options"] = _build_options(quiz_type, code, continent_filter)
         state["options_for_code"] = code
 
 
@@ -998,6 +1069,8 @@ def home():
         default=DEFAULT_CONFIG,
         available_flags=len(AVAILABLE_BY_QUIZ["flag_country"]),
         available_capitals=len(AVAILABLE_BY_QUIZ["country_capital"]),
+        continents_flag=_continent_options_for_quiz("flag_country"),
+        continents_capital=_continent_options_for_quiz("country_capital"),
     )
 
 
@@ -1015,6 +1088,12 @@ def room_create():
     quiz_type = request.form.get("quiz_type", "flag_country")
     if quiz_type not in AVAILABLE_BY_QUIZ:
         quiz_type = "flag_country"
+    continent_filter = request.form.get("continent_filter", "all")
+    if continent_filter not in CONTINENT_LABELS:
+        continent_filter = "all"
+    continent_filter = request.form.get("continent_filter", "all")
+    if continent_filter not in CONTINENT_LABELS:
+        continent_filter = "all"
 
     p1_name = (request.form.get("player1_name", DEFAULT_CONFIG["player1_name"]).strip() or DEFAULT_CONFIG["player1_name"])
     p2_name = "Aguardando Jogador 2"
@@ -1022,6 +1101,7 @@ def room_create():
     config = {
         "mode": "versus",
         "quiz_type": quiz_type,
+        "continent_filter": continent_filter,
         "player1_name": p1_name,
         "player2_name": p2_name,
         "rounds": rounds,
@@ -1031,9 +1111,9 @@ def room_create():
         "round_time": round_time,
     }
 
-    pool = _pool_for_quiz(quiz_type)
+    pool = _pool_for_quiz(quiz_type, continent_filter)
     if rounds > len(pool):
-        flash(f"Rodadas ajustadas para {len(pool)} por falta de quest?es suficientes neste modo.")
+        flash(f"Rodadas ajustadas para {len(pool)} por falta de questões suficientes neste filtro.")
 
     _start_new_state(_new_state(config))
     game_id = session.get("game_id")
@@ -1435,6 +1515,7 @@ def start():
     config = {
         "mode": request.form.get("mode", "solo"),
         "quiz_type": quiz_type,
+        "continent_filter": continent_filter,
         "player1_name": (request.form.get("player1_name", DEFAULT_CONFIG["player1_name"]).strip() or DEFAULT_CONFIG["player1_name"]),
         "player2_name": (request.form.get("player2_name", DEFAULT_CONFIG["player2_name"]).strip() or DEFAULT_CONFIG["player2_name"]),
         "rounds": rounds,
@@ -1444,9 +1525,9 @@ def start():
         "round_time": round_time,
     }
 
-    pool = _pool_for_quiz(quiz_type)
+    pool = _pool_for_quiz(quiz_type, continent_filter)
     if rounds > len(pool):
-        flash(f"Rodadas ajustadas para {len(pool)} por falta de questões suficientes neste modo.")
+        flash(f"Rodadas ajustadas para {len(pool)} por falta de questões suficientes neste filtro.")
 
     _start_new_state(_new_state(config))
     return redirect(url_for("round_view"))
@@ -1488,6 +1569,8 @@ def round_view():
         "feedback": state.get("feedback", ""),
         "mode": state["config"]["mode"],
         "quiz_type": quiz_type,
+        "continent_filter": str(state["config"].get("continent_filter", "all")),
+        "continent_label": CONTINENT_LABELS.get(str(state["config"].get("continent_filter", "all")), "Todos os países"),
         "current_player": state["current_player"],
         "current_player_name": _player_label(state),
         "player1_name": state["config"]["player1_name"],
@@ -1528,9 +1611,10 @@ def answer():
         return redirect(url_for("round_view"))
 
     quiz_type = str(state["config"]["quiz_type"])
+    continent_filter = str(state["config"].get("continent_filter", "all"))
     selected_code = request.form.get("code")
 
-    pool = _pool_for_quiz(quiz_type)
+    pool = _pool_for_quiz(quiz_type, continent_filter)
     if selected_code not in pool:
         flash("Alternativa inválida.")
         return redirect(url_for("round_view"))

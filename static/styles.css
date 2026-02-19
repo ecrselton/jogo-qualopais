@@ -183,6 +183,32 @@ h1 {
   margin-top: 0;
 }
 
+.landing-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.section-divider {
+  margin: 18px 0;
+  border: none;
+  border-top: 1px solid #d8cfbe;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
 .grid-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -269,6 +295,7 @@ h1 {
 .prompt {
   margin: 14px 0 8px;
   font-size: 1.45rem;
+  line-height: 1.1;
 }
 
 .feedback {
@@ -503,6 +530,12 @@ h1 {
 @media (max-width: 900px) {
   .shell { padding: 14px 10px 24px; }
   .card { padding: 14px; }
+  .landing-head {
+    grid-template-columns: 1fr;
+  }
+  .landing-actions {
+    justify-content: flex-start;
+  }
   .hud { grid-template-columns: 1fr 1fr; }
   .options-grid { grid-template-columns: 1fr 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -518,6 +551,13 @@ h1 {
 }
 
 @media (max-width: 640px) {
+  .shell {
+    padding: 10px 8px 18px;
+  }
+  .card {
+    border-radius: 16px;
+    padding: 12px;
+  }
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -530,7 +570,8 @@ h1 {
     grid-column: span 1;
   }
   .options-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
   .in-game-nav {
     justify-content: space-between;
@@ -543,17 +584,34 @@ h1 {
     margin-top: 4px;
   }
   .btn-option {
-    min-height: 64px;
-    font-size: 1rem;
+    min-height: 52px;
+    font-size: .95rem;
+    padding: 8px 8px;
   }
   .btn-primary,
   .btn-ghost {
-    min-height: 46px;
+    min-height: 44px;
   }
   .grid-form input[type="number"],
   .grid-form input[type="text"],
   .grid-form select {
     font-size: 16px;
+  }
+  .flag-wrap,
+  .country-wrap {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .flag-img {
+    max-height: 220px;
+  }
+  .prompt {
+    font-size: 1.2rem;
+    margin: 8px 0 6px;
+  }
+  .feedback {
+    margin: 4px 0 10px;
+    font-size: .95rem;
   }
 }
 

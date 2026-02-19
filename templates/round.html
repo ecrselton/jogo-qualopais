@@ -37,8 +37,10 @@
     {% if info.flash_mode %}
       <div><span>Tempo</span><strong id="timer">{{ info.round_time }}</strong></div>
     {% endif %}
+    <div><span>Filtro</span><strong>{{ info.continent_label }}</strong></div>
   </div>
 
+  <h2 class="prompt">{{ info.prompt }}</h2>
   <p class="feedback">{{ info.feedback }}</p>
 
   {% if info.visual_type == 'flag' %}

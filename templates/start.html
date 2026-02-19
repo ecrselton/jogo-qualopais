@@ -1,20 +1,30 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 <section class="card config-card">
-  <h2>Configuracao da Partida</h2>
-  <p class="muted">Bandeiras validas: <strong>{{ available_flags }}</strong> | Paises com capital: <strong>{{ available_capitals }}</strong></p>
-
-  <div class="mode-pills" style="margin-bottom: 14px;">
-    <a class="btn-primary" href="{{ url_for('tictactoe') }}" style="text-decoration:none;display:inline-block;">Ir para Jogo da Velha</a>
-    <a class="btn-primary" href="{{ url_for('checkers') }}" style="text-decoration:none;display:inline-block;">Ir para Damas</a>
+  <div class="landing-head">
+    <div>
+      <h2>Configuração da Partida</h2>
+      <p class="muted">Bandeiras válidas: <strong>{{ available_flags }}</strong> | Países com capital: <strong>{{ available_capitals }}</strong></p>
+    </div>
+    <div class="landing-actions">
+      <a class="btn-primary" href="{{ url_for('tictactoe') }}">Jogo da Velha</a>
+      <a class="btn-primary" href="{{ url_for('checkers') }}">Damas</a>
+    </div>
   </div>
 
   <form method="post" action="{{ url_for('start') }}" class="grid-form">
     <label>Tipo de quiz</label>
     <div class="mode-pills">
-      <label><input type="radio" name="quiz_type" value="flag_country" checked> Bandeira -> Pais</label>
-      <label><input type="radio" name="quiz_type" value="country_capital"> Pais -> Capital</label>
+      <label><input type="radio" name="quiz_type" value="flag_country" checked> Bandeira -> País</label>
+      <label><input type="radio" name="quiz_type" value="country_capital"> País -> Capital</label>
     </div>
+
+    <label for="continent_filter">Continente / Escopo</label>
+    <select id="continent_filter" name="continent_filter">
+      {% for code, label, count in continents_flag %}
+        <option value="{{ code }}">{{ label }} ({{ count }})</option>
+      {% endfor %}
+    </select>
 
     <label>Modo de partida</label>
     <div class="mode-pills">
@@ -34,28 +44,35 @@
     <label for="points_per_hit">Pontos por acerto</label>
     <input id="points_per_hit" name="points_per_hit" type="number" min="1" value="{{ default.points_per_hit }}" required>
 
-    <label for="max_attempts">Tentativas por questao</label>
+    <label for="max_attempts">Tentativas por questão</label>
     <input id="max_attempts" name="max_attempts" type="number" min="1" value="{{ default.max_attempts }}" required>
 
-    <label class="span-2"><input type="checkbox" name="flash_mode"> Modo Relampago</label>
+    <label class="span-2"><input type="checkbox" name="flash_mode"> Modo Relâmpago</label>
 
     <label for="round_time">Tempo por rodada (s)</label>
     <input id="round_time" name="round_time" type="number" min="1" value="{{ default.round_time }}" required>
 
-    <button class="btn-primary span-2" type="submit">Comecar Agora (local)</button>
+    <button class="btn-primary span-2" type="submit">Começar Agora (local)</button>
   </form>
 
-  <hr style="margin: 18px 0; border: none; border-top: 1px solid #d8cfbe;">
-  <h3 style="margin-top:0;">Sala Online (1x1 em dispositivos diferentes)</h3>
+  <hr class="section-divider">
+  <h3 class="section-title">Sala Online (1x1 em dispositivos diferentes)</h3>
 
   <form method="post" action="{{ url_for('room_create') }}" class="grid-form" style="margin-top: 10px;">
     <label for="room_host_name">Seu nome (Jogador 1)</label>
     <input id="room_host_name" name="player1_name" type="text" maxlength="24" value="{{ default.player1_name }}">
 
     <label for="room_quiz_type">Tipo de quiz</label>
-    <select id="room_quiz_type" name="quiz_type" style="padding:10px;border-radius:12px;border:1px solid #d8cfbe;">
-      <option value="flag_country">Bandeira -> Pais</option>
-      <option value="country_capital">Pais -> Capital</option>
+    <select id="room_quiz_type" name="quiz_type">
+      <option value="flag_country">Bandeira -> País</option>
+      <option value="country_capital">País -> Capital</option>
+    </select>
+
+    <label for="room_continent_filter">Continente / Escopo</label>
+    <select id="room_continent_filter" name="continent_filter">
+      {% for code, label, count in continents_flag %}
+        <option value="{{ code }}">{{ label }} ({{ count }})</option>
+      {% endfor %}
     </select>
 
     <label for="room_rounds">Rodadas</label>
@@ -64,19 +81,19 @@
     <label for="room_points">Pontos por acerto</label>
     <input id="room_points" name="points_per_hit" type="number" min="1" value="{{ default.points_per_hit }}" required>
 
-    <label for="room_attempts">Tentativas por questao</label>
+    <label for="room_attempts">Tentativas por questão</label>
     <input id="room_attempts" name="max_attempts" type="number" min="1" value="{{ default.max_attempts }}" required>
 
     <label for="room_time">Tempo por rodada (s)</label>
     <input id="room_time" name="round_time" type="number" min="1" value="{{ default.round_time }}" required>
 
-    <label class="span-2"><input type="checkbox" name="flash_mode"> Modo Relampago</label>
+    <label class="span-2"><input type="checkbox" name="flash_mode"> Modo Relâmpago</label>
 
     <button class="btn-primary span-2" type="submit">Criar Sala Online</button>
   </form>
 
   <form method="post" action="{{ url_for('room_join') }}" class="grid-form" style="margin-top: 10px;">
-    <label for="join_code">Codigo da sala</label>
+    <label for="join_code">Código da sala</label>
     <input id="join_code" name="room_code" type="text" maxlength="6" placeholder="ABC123" required>
 
     <label for="join_name">Seu nome (Jogador 2)</label>
@@ -85,4 +102,47 @@
     <button class="btn-primary span-2" type="submit">Entrar na Sala</button>
   </form>
 </section>
+
+<script>
+  (() => {
+    const localType = document.getElementsByName('quiz_type');
+    const localCont = document.getElementById('continent_filter');
+    const roomType = document.getElementById('room_quiz_type');
+    const roomCont = document.getElementById('room_continent_filter');
+    const data = {
+      flag_country: {{ continents_flag|tojson }},
+      country_capital: {{ continents_capital|tojson }}
+    };
+
+    function refill(selectEl, items) {
+      const current = selectEl.value;
+      selectEl.innerHTML = '';
+      items.forEach(([code, label, count]) => {
+        const opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = `${label} (${count})`;
+        selectEl.appendChild(opt);
+      });
+      selectEl.value = items.some(([code]) => code === current) ? current : 'all';
+    }
+
+    function currentLocalType() {
+      const checked = Array.from(localType).find((r) => r.checked);
+      return checked ? checked.value : 'flag_country';
+    }
+
+    function syncLocal() {
+      refill(localCont, data[currentLocalType()] || data.flag_country);
+    }
+
+    function syncRoom() {
+      refill(roomCont, data[roomType.value] || data.flag_country);
+    }
+
+    localType.forEach((r) => r.addEventListener('change', syncLocal));
+    roomType.addEventListener('change', syncRoom);
+    syncLocal();
+    syncRoom();
+  })();
+</script>
 {% endblock %}
