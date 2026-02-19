@@ -434,6 +434,29 @@ h1 {
   font-size: 1.08rem;
 }
 
+.final-last {
+  margin: 8px 0 14px;
+  border-radius: 14px;
+  border: 2px solid;
+  padding: 10px 14px;
+  text-align: center;
+  font-family: 'Archivo Black', sans-serif;
+  letter-spacing: 1px;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+.final-last.win {
+  background: linear-gradient(180deg, #eefcf4 0%, #dff7e9 100%);
+  border-color: #67bf8f;
+  color: #17633a;
+}
+
+.final-last.lose {
+  background: linear-gradient(180deg, #fff2f0 0%, #ffe1dc 100%);
+  border-color: #e28b7e;
+  color: #8a2f22;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

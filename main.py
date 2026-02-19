@@ -27,7 +27,7 @@ DEFAULT_CONFIG = {
     "player2_name": "Jogador 2",
     "rounds": 50,
     "points_per_hit": 10,
-    "max_attempts": 2,
+    "max_attempts": 1,
     "flash_mode": False,
     "round_time": 7,
 }
@@ -236,6 +236,7 @@ class DataRepository:
     @staticmethod
     def _build_pt_capital_names() -> Dict[str, str]:
         return {
+            "BO": "Sucre/La Paz",
             "AT": "Viena",
             "AU": "Camberra",
             "BR": "Brasília",
@@ -1143,8 +1144,6 @@ def room_create():
     }
 
     pool = _pool_for_quiz(quiz_type, continent_filter)
-    if rounds > len(pool):
-        flash(f"Rodadas ajustadas para {len(pool)} por falta de questões suficientes neste filtro.")
 
     _start_new_state(_new_state(config))
     game_id = session.get("game_id")
@@ -1561,8 +1560,6 @@ def start():
     }
 
     pool = _pool_for_quiz(quiz_type, continent_filter)
-    if rounds > len(pool):
-        flash(f"Rodadas ajustadas para {len(pool)} por falta de questões suficientes neste filtro.")
 
     _start_new_state(_new_state(config))
     return redirect(url_for("round_view"))
@@ -1702,6 +1699,16 @@ def result():
             winner = "Empate"
 
     errors = [item for item in results if not item["correct"]]
+    last_effect = None
+    last_text = ""
+    if results:
+        last = results[-1]
+        if bool(last.get("correct")):
+            last_effect = "correct"
+            last_text = "ACERTOU!"
+        else:
+            last_effect = "wrong"
+            last_text = "ERROU!"
 
     return render_template(
         "result.html",
@@ -1717,6 +1724,8 @@ def result():
         quiz_type=state["config"]["quiz_type"],
         winner=winner,
         errors=errors,
+        last_effect=last_effect,
+        last_text=last_text,
     )
 
 

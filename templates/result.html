@@ -12,6 +12,9 @@
   {% endif %}
 
   <h2>Resultado Final</h2>
+  {% if last_effect %}
+    <div class="final-last {% if last_effect == 'correct' %}win{% else %}lose{% endif %}">{{ last_text }}</div>
+  {% endif %}
 
   {% if mode == 'versus' %}
     <p class="scoreline">Placar: <strong>{{ player1_name }} {{ score_p1 }}</strong> x <strong>{{ player2_name }} {{ score_p2 }}</strong></p>
