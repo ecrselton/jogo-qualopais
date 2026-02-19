@@ -195,6 +195,8 @@ class DataRepository:
             "FR": "França",
             "DE": "Alemanha",
             "GB": "Reino Unido",
+            "GY": "Guiana",
+            "GF": "Guiana Francesa",
             "GB-ENG": "Inglaterra",
             "GB-NIR": "Irlanda do Norte",
             "GB-SCT": "Escócia",
