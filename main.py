@@ -390,12 +390,43 @@ TTT_WIN_LINES = (
 CHECKERS_DARK = {(r, c) for r in range(8) for c in range(8) if (r + c) % 2 == 1}
 
 
-def _pool_for_quiz(quiz_type: str, continent_filter: str = "all") -> List[str]:
+def _normalize_continent_filters(raw: object) -> List[str]:
+    values: List[str] = []
+    if isinstance(raw, (list, tuple, set)):
+        source = [str(v).strip() for v in raw]
+    else:
+        source = [x.strip() for x in str(raw or "").split(",")]
+    for code in source:
+        if not code:
+            continue
+        if code in CONTINENT_LABELS:
+            values.append(code)
+    unique = sorted(set(values))
+    if not unique or "all" in unique:
+        return ["all"]
+    return unique
+
+
+def _pack_continent_filters(raw: object) -> str:
+    return ",".join(_normalize_continent_filters(raw))
+
+
+def _continent_filter_label(raw: object) -> str:
+    selected = _normalize_continent_filters(raw)
+    if selected == ["all"]:
+        return CONTINENT_LABELS["all"]
+    return ", ".join(CONTINENT_LABELS.get(code, code) for code in selected)
+
+
+def _pool_for_quiz(quiz_type: str, continent_filter: object = "all") -> List[str]:
     quiz = quiz_type if quiz_type in AVAILABLE_BY_QUIZ else "flag_country"
-    continent = continent_filter if continent_filter in CONTINENT_LABELS else "all"
-    if continent == "all":
+    selected = _normalize_continent_filters(continent_filter)
+    if selected == ["all"]:
         return AVAILABLE_BY_QUIZ[quiz]
-    return AVAILABLE_BY_CONTINENT.get(quiz, {}).get(continent, [])
+    merged: Set[str] = set()
+    for code in selected:
+        merged.update(AVAILABLE_BY_CONTINENT.get(quiz, {}).get(code, []))
+    return sorted(merged)
 
 
 def _continent_options_for_quiz(quiz_type: str) -> List[Tuple[str, str, int]]:
@@ -430,8 +461,7 @@ def _upgrade_state(state: Optional[Dict[str, object]]) -> Optional[Dict[str, obj
 
     if config["quiz_type"] not in AVAILABLE_BY_QUIZ:
         config["quiz_type"] = DEFAULT_CONFIG["quiz_type"]
-    if config["continent_filter"] not in CONTINENT_LABELS:
-        config["continent_filter"] = DEFAULT_CONFIG["continent_filter"]
+    config["continent_filter"] = _pack_continent_filters(config.get("continent_filter", "all"))
 
     state.setdefault("order", [])
     state.setdefault("round_index", 0)
@@ -1071,6 +1101,7 @@ def home():
         available_capitals=len(AVAILABLE_BY_QUIZ["country_capital"]),
         continents_flag=_continent_options_for_quiz("flag_country"),
         continents_capital=_continent_options_for_quiz("country_capital"),
+        default_continent_filters=_normalize_continent_filters(DEFAULT_CONFIG.get("continent_filter", "all")),
     )
 
 
@@ -1088,12 +1119,10 @@ def room_create():
     quiz_type = request.form.get("quiz_type", "flag_country")
     if quiz_type not in AVAILABLE_BY_QUIZ:
         quiz_type = "flag_country"
-    continent_filter = request.form.get("continent_filter", "all")
-    if continent_filter not in CONTINENT_LABELS:
-        continent_filter = "all"
-    continent_filter = request.form.get("continent_filter", "all")
-    if continent_filter not in CONTINENT_LABELS:
-        continent_filter = "all"
+    selected_continents = request.form.getlist("continent_filters")
+    if not selected_continents:
+        selected_continents = [request.form.get("continent_filter", "all")]
+    continent_filter = _pack_continent_filters(selected_continents)
 
     p1_name = (request.form.get("player1_name", DEFAULT_CONFIG["player1_name"]).strip() or DEFAULT_CONFIG["player1_name"])
     p2_name = "Aguardando Jogador 2"
@@ -1511,6 +1540,10 @@ def start():
     quiz_type = request.form.get("quiz_type", "flag_country")
     if quiz_type not in AVAILABLE_BY_QUIZ:
         quiz_type = "flag_country"
+    selected_continents = request.form.getlist("continent_filters")
+    if not selected_continents:
+        selected_continents = [request.form.get("continent_filter", "all")]
+    continent_filter = _pack_continent_filters(selected_continents)
 
     config = {
         "mode": request.form.get("mode", "solo"),
@@ -1570,7 +1603,7 @@ def round_view():
         "mode": state["config"]["mode"],
         "quiz_type": quiz_type,
         "continent_filter": str(state["config"].get("continent_filter", "all")),
-        "continent_label": CONTINENT_LABELS.get(str(state["config"].get("continent_filter", "all")), "Todos os países"),
+        "continent_label": _continent_filter_label(state["config"].get("continent_filter", "all")),
         "current_player": state["current_player"],
         "current_player_name": _player_label(state),
         "player1_name": state["config"]["player1_name"],
