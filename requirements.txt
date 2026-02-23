@@ -1,3 +1,4 @@
-﻿Flask
+Flask
+Flask-SocketIO
 Babel
 pycountry-convert

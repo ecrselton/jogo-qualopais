@@ -8,7 +8,8 @@ import uuid
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
 
-from flask import Flask, flash, redirect, render_template, request, send_from_directory, session, url_for
+from flask import Flask, flash, jsonify, redirect, render_template, request, send_from_directory, session, url_for
+from flask_socketio import SocketIO, join_room
 try:
     from babel import Locale
 except Exception:
@@ -413,6 +414,7 @@ AVAILABLE_BY_CONTINENT = _build_available_by_continent()
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLAG_GAME_SECRET", "dev-secret-change-me")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 GAME_STORE: Dict[str, Dict[str, object]] = {}
 ROOM_STORE: Dict[str, Dict[str, object]] = {}
 CHECKERS_ROOM_STORE: Dict[str, Dict[str, object]] = {}
@@ -615,6 +617,22 @@ def _room_can_play(state: Dict[str, object], room: Optional[Dict[str, object]]) 
     if role == "p1":
         return state.get("current_player") == 1
     return state.get("current_player") == 2
+
+
+def _emit_quiz_room_update(room_code: Optional[str]) -> None:
+    if not room_code:
+        return
+    try:
+        socketio.emit("quiz_room_update", {"room_code": room_code}, room=room_code)
+    except Exception:
+        pass
+
+
+@socketio.on("connect")
+def on_socket_connect() -> None:
+    room_code = session.get("room_code")
+    if room_code and room_code in ROOM_STORE:
+        join_room(str(room_code))
 
 def _new_ttt_state(mode: str, p1_name: str, p2_name: str) -> Dict[str, object]:
     return {
@@ -1212,6 +1230,7 @@ def room_join():
         state["config"]["mode"] = "versus"
         state["config"]["player2_name"] = p2_name
         _save_state(state)
+        _emit_quiz_room_update(code)
 
     flash(f"Entrou na sala {code} como Jogador 2.")
     return redirect(url_for("round_view"))
@@ -1669,6 +1688,31 @@ def round_view():
     return render_template("round.html", info=info)
 
 
+@app.get("/round/poll")
+def round_poll():
+    state = _get_state()
+    if not state:
+        return jsonify({"reload": True})
+    room = _get_room()
+    if not room:
+        return jsonify({"reload": True})
+
+    code = _current_code(state)
+    return jsonify(
+        {
+            "reload": False,
+            "waiting_room": bool(not _room_ready(room)),
+            "can_play": bool(_room_can_play(state, room)),
+            "round_index": int(state.get("round_index", 0)),
+            "current_player": int(state.get("current_player", 1)),
+            "attempts_left": int(state.get("attempts_left", 0)),
+            "code": code or "",
+            "score_p1": int(state.get("score_p1", 0)),
+            "score_p2": int(state.get("score_p2", 0)),
+        }
+    )
+
+
 @app.post("/answer")
 def answer():
     state = _get_state()
@@ -1691,6 +1735,7 @@ def answer():
     selected_label = _label_for_code(quiz_type, selected_code)
     _register_answer(state, selected_code, selected_label)
     _save_state(state)
+    _emit_quiz_room_update(session.get("room_code") if room else None)
 
     if _current_code(state) is None:
         return redirect(url_for("result"))
@@ -1709,6 +1754,7 @@ def skip():
 
     _register_answer(state, None, "<pulou>", forced_wrong=True)
     _save_state(state)
+    _emit_quiz_room_update(session.get("room_code") if room else None)
 
     if _current_code(state) is None:
         return redirect(url_for("result"))
@@ -1772,4 +1818,6 @@ def serve_flag(filename: str):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", "5000"))
+    debug_mode = os.environ.get("FLASK_DEBUG", "0") == "1"
+    socketio.run(app, host="0.0.0.0", port=port, debug=debug_mode)

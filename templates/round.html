@@ -83,9 +83,23 @@
 </script>
 {% endif %}
 
-{% if info.auto_refresh %}
+{% if info.room_code %}
 <script>
-  setTimeout(() => window.location.reload(), 2500);
+  (() => {
+    const roomCode = {{ info.room_code | tojson }};
+    const socketScript = document.createElement('script');
+    socketScript.src = '/socket.io/socket.io.js';
+    socketScript.onload = () => {
+      if (typeof io === 'undefined') return;
+      const socket = io();
+      socket.on('quiz_room_update', (payload) => {
+        if (payload && payload.room_code === roomCode) {
+          window.location.reload();
+        }
+      });
+    };
+    document.head.appendChild(socketScript);
+  })();
 </script>
 {% endif %}
 {% endblock %}
