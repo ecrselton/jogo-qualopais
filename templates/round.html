@@ -87,18 +87,65 @@
 <script>
   (() => {
     const roomCode = {{ info.room_code | tojson }};
+    const baseline = {
+      waiting_room: {{ 'true' if info.waiting_room else 'false' }},
+      can_play: {{ 'true' if info.can_play else 'false' }},
+      round_index: {{ info.round_now - 1 }},
+      current_player: {{ info.current_player }},
+      attempts_left: {{ info.attempts_left }},
+      code: "{{ info.code or '' }}",
+      score_p1: {{ info.score_p1 }},
+      score_p2: {{ info.score_p2 }},
+    };
+    let fallbackStarted = false;
+
+    function startFallbackPolling() {
+      if (fallbackStarted) return;
+      fallbackStarted = true;
+      setInterval(async () => {
+        try {
+          const res = await fetch("{{ url_for('round_poll') }}", { cache: "no-store" });
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.reload) {
+            window.location.reload();
+            return;
+          }
+          const changed =
+            data.waiting_room !== baseline.waiting_room ||
+            data.can_play !== baseline.can_play ||
+            data.round_index !== baseline.round_index ||
+            data.current_player !== baseline.current_player ||
+            data.attempts_left !== baseline.attempts_left ||
+            data.code !== baseline.code ||
+            data.score_p1 !== baseline.score_p1 ||
+            data.score_p2 !== baseline.score_p2;
+          if (changed) {
+            window.location.reload();
+          }
+        } catch (_) {}
+      }, 4000);
+    }
+
     const socketScript = document.createElement('script');
     socketScript.src = '/socket.io/socket.io.js';
     socketScript.onload = () => {
-      if (typeof io === 'undefined') return;
+      if (typeof io === 'undefined') {
+        startFallbackPolling();
+        return;
+      }
       const socket = io();
+      socket.on('connect_error', () => startFallbackPolling());
+      socket.on('disconnect', () => startFallbackPolling());
       socket.on('quiz_room_update', (payload) => {
         if (payload && payload.room_code === roomCode) {
           window.location.reload();
         }
       });
     };
+    socketScript.onerror = () => startFallbackPolling();
     document.head.appendChild(socketScript);
+    setTimeout(() => startFallbackPolling(), 5000);
   })();
 </script>
 {% endif %}
